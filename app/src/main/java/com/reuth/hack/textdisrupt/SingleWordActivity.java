@@ -1,5 +1,6 @@
 package com.reuth.hack.textdisrupt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,12 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 public class SingleWordActivity extends AppCompatActivity {
 
-    private static final int NUM_PAGES = 5;
-    public static final String PAGE_NUMBER = "pageNumber";
+    public static final String WORD_TO_DISPLAY = "WORD_TO_DISPLAY";
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private int wordIndex = -1;
+    private ArrayList<Word> words_array;
+
 
 
     @Override
@@ -25,8 +31,12 @@ public class SingleWordActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int s = getIntent().getIntExtra("TOUCHED_WORD_INDEX", -1);
-        Toast.makeText(this, String.valueOf(s), Toast.LENGTH_LONG).show();
+        wordIndex = getIntent().getIntExtra("TOUCHED_WORD_INDEX", -1);
+
+        Bundle bundle = getIntent().getBundleExtra("TOUCHED_WORD_BUNDLE");
+        words_array = bundle.getParcelableArrayList("TOUCHED_WORD_ARRAY");
+
+        Toast.makeText(this, String.valueOf(wordIndex), Toast.LENGTH_LONG).show();
 
 
 
@@ -34,6 +44,7 @@ public class SingleWordActivity extends AppCompatActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        mPager.setCurrentItem(wordIndex);
         mPager.setPageTransformer(true, new DepthPageTransformer());
     }
 
@@ -54,16 +65,19 @@ public class SingleWordActivity extends AppCompatActivity {
      * sequence.
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = new SingleWordFragment();
+
+            SingleWordFragment fragment = SingleWordFragment.getInstance();
 
             Bundle bundle = new Bundle();
-            bundle.putInt(PAGE_NUMBER, position);
+            bundle.putString(WORD_TO_DISPLAY, words_array.get(position).getValue());
 
             fragment.setArguments(bundle);
             return fragment;
@@ -71,7 +85,11 @@ public class SingleWordActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return NUM_PAGES;
+            if (words_array == null) {
+                return 0;
+            }
+
+            return words_array.size();
         }
     }
 

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import static com.reuth.hack.textdisrupt.SingleWordActivity.PAGE_NUMBER;
+import static com.reuth.hack.textdisrupt.SingleWordActivity.WORD_TO_DISPLAY;
 
 /**
  * Created by liorr on 5/4/17.
@@ -15,18 +15,20 @@ import static com.reuth.hack.textdisrupt.SingleWordActivity.PAGE_NUMBER;
 
 public class SingleWordFragment extends Fragment {
 
+    public static SingleWordFragment getInstance() {
+        return new SingleWordFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle bundle = getArguments();
-        int pageNumber = bundle.getInt(PAGE_NUMBER);
 
-        ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_single_word, container, false);
+        Bundle bundle = getArguments();
+        View rootView = inflater.inflate(R.layout.fragment_single_word, container, false);
 
         TextView textView = (TextView) rootView.findViewById(R.id.scrollViewTextView);
-        textView.setText("Hello Lior " + pageNumber);
+        textView.setText(bundle.getString(WORD_TO_DISPLAY));
 
         return rootView;
     }

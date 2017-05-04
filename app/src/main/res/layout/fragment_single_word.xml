@@ -1,12 +1,15 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <TextView style="?android:textAppearanceMedium"
         android:padding="16dp"
         android:lineSpacingMultiplier="1.2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollViewTextView" />
+        android:layout_marginTop="200dp"
+        android:id="@+id/scrollViewTextView"
+        android:background="#34f5d6"/>
 </ScrollView>

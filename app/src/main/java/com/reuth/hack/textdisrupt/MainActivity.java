@@ -1,12 +1,18 @@
 package com.reuth.hack.textdisrupt;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.Layout;
 import android.view.MotionEvent;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -35,6 +41,12 @@ public class MainActivity extends AppCompatActivity
 
     ArrayList<Word> words_array = new ArrayList<>();
     private int touchedWordIndex = -1;
+
+    SpannableString span_str;
+
+    TextView text_view;
+
+    Boolean shouldEmphBegin = false, shouldEmphEnd = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         createTTS();
 
         // build words array (will be used by other activities of this app)
-        TextView text_view = (TextView) findViewById(R.id.main_text_view);
+        text_view = (TextView) findViewById(R.id.main_text_view);
         String text_str = text_view.getText().toString();
 
         buildWordsArray(text_str);
@@ -137,6 +149,10 @@ public class MainActivity extends AppCompatActivity
                 words_array.add(new Word(firstIndex, lastIndex, value));
             }
         }
+
+        span_str = new SpannableString(text_str);
+        text_view.setText(span_str);
+        text_view.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 
@@ -145,7 +161,6 @@ public class MainActivity extends AppCompatActivity
 
         //check for successful instantiation
         if (initStatus == TextToSpeech.SUCCESS) {
-
             if(myTTS.isLanguageAvailable(Locale.ENGLISH)==TextToSpeech.LANG_AVAILABLE)
                 myTTS.setLanguage(Locale.ENGLISH);
         }
@@ -231,8 +246,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onLongClick(View v) {
 
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("TOUCHED_WORD_ARRAY", words_array);
+
                 Intent intent = new Intent(getBaseContext(), SingleWordActivity.class);
                 intent.putExtra("TOUCHED_WORD_INDEX", touchedWordIndex);
+                intent.putExtra("TOUCHED_WORD_BUNDLE", bundle);
+
                 startActivity(intent);
 
                 // open some shitty dialog.
@@ -319,38 +339,84 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        TextView main_text = (TextView) findViewById(R.id.main_text_view);
-
         if (id == R.id.nav_change_font) {
             // Handle the camera action
         } else if (id == R.id.nav_change_size_smaller) {
-            float text_size = main_text.getTextSize();
-//            Toast.makeText(this, Float.toString(text_size), Toast.LENGTH_LONG).show();
-            main_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size - 10);
-
+            float text_size = text_view.getTextSize();
+            text_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size - 10);
         } else if (id == R.id.nav_change_size_bigger) {
-            float text_size = main_text.getTextSize();
-//                     Toast.makeText(this, Float.toString(text_size), Toast.LENGTH_LONG).show();
-            main_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size + 10);
-
+            float text_size = text_view.getTextSize();
+            text_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size + 10);
         } else if (id == R.id.nav_change_line_spacing_smaller) {
-            float line_spacing = main_text.getLineSpacingExtra();
-            main_text.setLineSpacing (line_spacing - 10, 1);
+            float line_spacing = text_view.getLineSpacingExtra();
+            text_view.setLineSpacing (line_spacing - 10, 1);
         } else if (id == R.id.nav_change_line_spacing_bigger) {
-            float line_spacing = main_text.getLineSpacingExtra();
-            main_text.setLineSpacing (line_spacing + 10, 1);
+            float line_spacing = text_view.getLineSpacingExtra();
+            text_view.setLineSpacing (line_spacing + 10, 1);
         } else if (id == R.id.nav_emphasize_prefix) {
+            boolean emphBegin = shouldEmphBegin;
+            for (Word w : this.words_array) {
+                int beginIndex = w.getBegin();
+                int endIndex = Math.min(beginIndex + 2, w.getEnd());
+                int text_color = Color.RED;
+                SpannableString ss=(SpannableString)text_view.getText();
+                ForegroundColorSpan[] spans=ss.getSpans(beginIndex, endIndex,
+                        ForegroundColorSpan.class);
+                int spans_length = spans.length;
+                if ((spans_length > 0) && emphBegin) {
+                    span_str.removeSpan(spans[0]);
+                    shouldEmphBegin = false;
+                } else {
+                    span_str.setSpan(new ForegroundColorSpan(text_color),
+                            beginIndex, endIndex, 0);
+                    shouldEmphBegin = true;
+                }
 
+            }
         } else if (id == R.id.nav_emphasize_middle) {
-
+            for (Word w : this.words_array) {
+                int beginIndex = w.getBegin() + 2;
+                int endIndex = w.getEnd() - 2;
+                if (beginIndex < endIndex) {
+                    int text_color = Color.RED;
+                    SpannableString ss=(SpannableString)text_view.getText();
+                    ForegroundColorSpan[] spans=ss.getSpans(beginIndex, endIndex,
+                            ForegroundColorSpan.class);
+                    int spans_length = spans.length;
+                    if (spans_length > 0) {
+                        span_str.removeSpan(spans[0]);
+                    } else {
+                        span_str.setSpan(new ForegroundColorSpan(text_color),
+                                beginIndex, endIndex, 0);
+                    }
+                }
+            }
         } else if (id == R.id.nav_emphasize_suffix) {
-
+            boolean emphEnd = shouldEmphEnd;
+            for (Word w : this.words_array) {
+                int endIndex = w.getEnd();
+                int beginIndex = Math.max(w.getBegin(), endIndex - 2);
+                int text_color = Color.RED;
+                SpannableString ss=(SpannableString)text_view.getText();
+                ForegroundColorSpan[] spans=ss.getSpans(beginIndex, endIndex,
+                        ForegroundColorSpan.class);
+                int spans_length = spans.length;
+                if ((spans_length > 0) && emphEnd) {
+                    span_str.removeSpan(spans[0]);
+                    shouldEmphEnd = false;
+                } else {
+                    span_str.setSpan(new ForegroundColorSpan(text_color),
+                            beginIndex, endIndex, 0);
+                    shouldEmphEnd = true;
+                }
+            }
         } else if (id == R.id.nav_emphasize_margin) {
 
         } else if (id == R.id.nav_text_to_speach) {
-            myTTS.speak(main_text.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "my_speak");
+            myTTS.speak(text_view.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "my_speak");
         }
+        text_view.setText(span_str);
+        text_view.setMovementMethod(LinkMovementMethod.getInstance());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
