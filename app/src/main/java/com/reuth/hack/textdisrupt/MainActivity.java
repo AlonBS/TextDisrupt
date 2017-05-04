@@ -28,8 +28,15 @@ public class MainActivity extends AppCompatActivity
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                mika(v);
+            }
+        });
+
+        Button alonButton = (Button) findViewById(R.id.alonButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alon(v);
             }
         });
 
@@ -51,6 +58,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void mika(View v) {
+        Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    private void alon(View v) {
+        Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     @Override
@@ -91,17 +108,21 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_change_font) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_change_size_smaller) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_change_size_bigger) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_emphasize_prefix) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_emphasize_middle) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_emphasize_suffix) {
+
+        } else if (id == R.id.nav_emphasize_margin) {
+
+        } else if (id == R.id.nav_text_to_speach) {
 
         }
 

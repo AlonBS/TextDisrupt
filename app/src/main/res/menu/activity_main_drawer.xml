@@ -3,21 +3,37 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_change_font"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="שינוי פונט" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_change_size_smaller"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="הקטן טקסט" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_change_size_bigger"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="הגדל טקסט" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_emphasize_prefix"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="הדגש תחיליות" />
+        <item
+            android:id="@+id/nav_emphasize_suffix"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="הדגש סופיות" />
+        <item
+            android:id="@+id/nav_emphasize_middle"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="הדגש אמצעיות" />
+        <item
+            android:id="@+id/nav_emphasize_margin"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="הדגש שוליים" />
+        <item
+            android:id="@+id/nav_text_to_speach"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="הקראה" />
     </group>
 
     <item android:title="Communicate">
