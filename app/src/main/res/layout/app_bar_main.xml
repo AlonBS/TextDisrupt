@@ -53,6 +53,16 @@
             android:text="Alon Button"
             app:layout_anchor="@+id/include"
             app:layout_anchorGravity="center_vertical|center_horizontal" />
+
+        <Button
+            android:id="@+id/liorButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_weight="1"
+            android:text="lior Button"
+            app:layout_anchor="@+id/include"
+            app:layout_anchorGravity="center_vertical|center_horizontal" />
     </LinearLayout>
 
     <include

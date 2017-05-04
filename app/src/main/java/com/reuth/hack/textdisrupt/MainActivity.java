@@ -1,5 +1,6 @@
 package com.reuth.hack.textdisrupt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,8 +25,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button button = (Button) findViewById(R.id.mikaButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button mikaButton = (Button) findViewById(R.id.mikaButton);
+        mikaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mika(v);
@@ -33,12 +34,21 @@ public class MainActivity extends AppCompatActivity
         });
 
         Button alonButton = (Button) findViewById(R.id.alonButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        alonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alon(v);
             }
         });
+
+        Button liorButton = (Button) findViewById(R.id.liorButton);
+        liorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lior(v);
+            }
+        });
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -68,6 +78,11 @@ public class MainActivity extends AppCompatActivity
     private void alon(View v) {
         Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    private void lior(View v) {
+        Intent myIntent = new Intent(this, SingleWordActivity.class);
+        this.startActivity(myIntent);
     }
 
     @Override
