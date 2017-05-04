@@ -1,6 +1,7 @@
 package com.reuth.hack.textdisrupt;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class BottomBarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bottom_bar_fragment, container, false);
 
         unVowelsText(getContext(), view, "~some text as param");
+        paintText(getContext(), view, "~some text as param");
         enlargeText(getContext(), view, "some text as param");
         enlargeText(getContext(), view, "some text as param");
         enlargeText(getContext(), view, "some text as param");
@@ -45,7 +47,19 @@ public class BottomBarFragment extends Fragment {
                 Toast.makeText(context, str, Toast.LENGTH_LONG).show();
             }
         });
-    } //btn_unvowels
+    }
+
+    public static void paintText(final Context context, View mainView, final String str) {
+        Button b = (Button) mainView.findViewById(R.id.btn_finger_paint);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO - Lior
+                Intent myIntent = new Intent(context, FingerPaint.class);
+                context.startActivity(myIntent);
+            }
+        });
+    }
 
     public static void unVowelsText(final Context context, View mainView, final String str) {
         Button b = (Button) mainView.findViewById(R.id.btn_unvowels);
@@ -60,5 +74,5 @@ public class BottomBarFragment extends Fragment {
 
             }
         });
-    } //
+    }
 }
