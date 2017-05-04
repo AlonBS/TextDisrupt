@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -122,13 +125,25 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        TextView main_text = (TextView) findViewById(R.id.main_text_view);
         if (id == R.id.nav_change_font) {
             // Handle the camera action
         } else if (id == R.id.nav_change_size_smaller) {
+            float text_size = main_text.getTextSize();
+//            Toast.makeText(this, Float.toString(text_size), Toast.LENGTH_LONG).show();
+            main_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size - 10);
 
         } else if (id == R.id.nav_change_size_bigger) {
+            float text_size = main_text.getTextSize();
+//                     Toast.makeText(this, Float.toString(text_size), Toast.LENGTH_LONG).show();
+            main_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size + 10);
 
+        } else if (id == R.id.nav_change_line_spacing_smaller) {
+            float line_spacing = main_text.getLineSpacingExtra();
+            main_text.setLineSpacing (line_spacing - 10, 1);
+        } else if (id == R.id.nav_change_line_spacing_bigger) {
+            float line_spacing = main_text.getLineSpacingExtra();
+            main_text.setLineSpacing (line_spacing + 10, 1);
         } else if (id == R.id.nav_emphasize_prefix) {
 
         } else if (id == R.id.nav_emphasize_middle) {

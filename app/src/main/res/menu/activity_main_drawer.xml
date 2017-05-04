@@ -15,6 +15,14 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="הגדל טקסט" />
         <item
+            android:id="@+id/nav_change_line_spacing_smaller"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="הקטן מרווח שורות" />
+        <item
+            android:id="@+id/nav_change_line_spacing_bigger"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="הגדל מרווח שורות" />
+        <item
             android:id="@+id/nav_emphasize_prefix"
             android:icon="@drawable/ic_menu_manage"
             android:title="הדגש תחיליות" />
