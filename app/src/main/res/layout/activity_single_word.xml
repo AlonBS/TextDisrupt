@@ -34,7 +34,7 @@
             android:layout_weight="7">
 
         </android.support.v4.view.ViewPager>
-        <include layout="@layout/content_new_signle_word" android:layout_height="wrap_content"
+        <include layout="@layout/content_single_word" android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_weight="1"/>
 
