@@ -38,7 +38,7 @@ public class BottomBarFragment extends Fragment {
         return view;
     }
 
-    public static void enlargeText(final Context context, View mainView, final String str) {
+    public void enlargeText(final Context context, View mainView, final String str) {
         Button b = (Button) mainView.findViewById(R.id.btn_change_size_bigger);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +49,7 @@ public class BottomBarFragment extends Fragment {
         });
     }
 
-    public static void paintText(final Context context, View mainView, final String str) {
+    public void paintText(final Context context, View mainView, final String str) {
         Button b = (Button) mainView.findViewById(R.id.btn_finger_paint);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +61,7 @@ public class BottomBarFragment extends Fragment {
         });
     }
 
-    public static void unVowelsText(final Context context, View mainView, final String str) {
+    public void unVowelsText(final Context context, View mainView, final String str) {
         Button b = (Button) mainView.findViewById(R.id.btn_unvowels);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
