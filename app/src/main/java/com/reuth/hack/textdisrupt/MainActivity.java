@@ -1,11 +1,14 @@
 package com.reuth.hack.textdisrupt;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.text.Layout;
 import android.view.MotionEvent;
 import android.text.SpannableString;
@@ -296,6 +299,37 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_change_font) {
+
+            AlertDialog.Builder b = new AlertDialog.Builder(this);
+            b.setTitle("Example");
+            String[] types = {"By Zip", "By Category", "12"};
+            b.setItems(types, new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.dismiss();
+                    switch(which){
+                        case 0:
+
+                            text_view.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/David.ttf"));
+                            break;
+                        case 1:
+                            text_view.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/TNR.ttf"));
+                            break;
+                        case 2:
+                            text_view.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Calibri.ttf"));
+                            break;
+                    }
+                }
+
+            });
+
+            b.show();
+
+        text_view.setBackground(getDrawable(R.drawable.back));
+
+
             // Handle the camera action
         } else if (id == R.id.nav_change_size_smaller) {
             float text_size = text_view.getTextSize();
