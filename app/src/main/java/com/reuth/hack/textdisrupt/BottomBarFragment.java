@@ -23,6 +23,7 @@ public class BottomBarFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bottom_bar_fragment, container, false);
 
+        unVowelsText(getContext(), view, "~some text as param");
         enlargeText(getContext(), view, "some text as param");
         enlargeText(getContext(), view, "some text as param");
         enlargeText(getContext(), view, "some text as param");
@@ -44,5 +45,20 @@ public class BottomBarFragment extends Fragment {
                 Toast.makeText(context, str, Toast.LENGTH_LONG).show();
             }
         });
-    }
+    } //btn_unvowels
+
+    public static void unVowelsText(final Context context, View mainView, final String str) {
+        Button b = (Button) mainView.findViewById(R.id.btn_unvowels);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO - Shachar
+                Toast.makeText(context, str, Toast.LENGTH_LONG).show();
+
+                VowelsToggle vowelsToggle = new VowelsToggle(str);
+                String converted = vowelsToggle.removeVowels();
+
+            }
+        });
+    } //
 }

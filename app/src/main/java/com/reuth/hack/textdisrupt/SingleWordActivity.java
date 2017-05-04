@@ -1,6 +1,5 @@
 package com.reuth.hack.textdisrupt;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,8 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class SingleWordActivity extends AppCompatActivity {
 
@@ -78,6 +77,8 @@ public class SingleWordActivity extends AppCompatActivity {
 
             Bundle bundle = new Bundle();
             bundle.putString(WORD_TO_DISPLAY, words_array.get(position).getValue());
+
+            String orig = words_array.get(position).getValue();
 
             fragment.setArguments(bundle);
             return fragment;
