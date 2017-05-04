@@ -7,6 +7,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class SingleWordActivity extends AppCompatActivity {
 
@@ -24,6 +25,11 @@ public class SingleWordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
+
+        int s = getIntent().getIntExtra("TOUCHED_WORD_INDEX", -1);
+
+        Toast.makeText(this, String.valueOf(s), Toast.LENGTH_LONG).show();
+
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);

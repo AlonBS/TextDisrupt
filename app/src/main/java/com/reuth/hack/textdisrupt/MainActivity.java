@@ -22,8 +22,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.BreakIterator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnInitListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener {
 
     //TTS object
     private TextToSpeech myTTS;
@@ -31,15 +37,19 @@ public class MainActivity extends AppCompatActivity
     private int MY_DATA_CHECK_CODE = 0;
 
     ArrayList<Word> words_array = new ArrayList<>();
+    private int touchedWordIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createTTS();
+
+        init_app();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // TODO - integrate with Fragment of Resisi
         Button mikaButton = (Button) findViewById(R.id.mikaButton);
         mikaButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,23 +58,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Comparator<Word> c = new Comparator<Word>() {
-            public int compare(Word w1, Word w2) {
 
-                if ((w2.getFirst() >= w1.getFirst()) && (w2.getSecond() <= w1.getSecond())) {
-                    return 0;
-                }
-
-                if (w1.getFirst() < w2.getFirst()) {
-                    return 1;
-                }
-
-                return -1;
-            }
-        };
-
-
-        alon();
 //        Button alonButton = (Button) findViewById(R.id.alonButton);
 //        alonButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -101,8 +95,32 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
+
+    }
+
+
+    public void init_app() {
+
+        createTTS();
+
+        // build words array (will be used by other activities of this app)
         TextView text_view = (TextView) findViewById(R.id.main_text_view);
         String text_str = text_view.getText().toString();
+
+        buildWordsArray(text_str);
+
+
+        setTextViewOnLongTouchListener();
+        setTextViewOnLongClickListener();
+
+
+    }
+
+
+    public void buildWordsArray(String text_str) {
+
         BreakIterator bi = BreakIterator.getWordInstance(Locale.US);
         bi.setText(text_str);
 
@@ -167,36 +185,91 @@ public class MainActivity extends AppCompatActivity
 //                .setAction("Action", null).show();
 //    }
 
-    private void alon() {
+
+    // This is used in order to calulate the current word that has being touched
+    private void setTextViewOnLongTouchListener() {
 
         TextView tv = (TextView) findViewById(R.id.main_text_view);
-
         tv.setOnTouchListener( new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
+
                 Layout layout = ((TextView)v).getLayout();
                 int x = (int) event.getX();
                 int y = (int) event.getY();
+
                 if (layout != null) {
 
                     int line = layout.getLineForVertical(y);
                     int offset = layout.getOffsetForHorizontal(line, x);
 
-                    String offsetStr =  String.valueOf(offset);
+                    touchedWordIndex = getWordIndex(offset);
 
-                    Snackbar.make(v, offsetStr, Snackbar.LENGTH_LONG)
+                    Snackbar.make(v, "touchedWordIndex: " + touchedWordIndex, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
+                    //Intenet - start resisi's activity with
+                    //Bundle (INDEX):
+
+
+
 
                 }
 
                 return false;
             }
         });
+    }
+
+
+    private void setTextViewOnLongClickListener() {
+
+        TextView tv = (TextView) findViewById(R.id.main_text_view);
+        tv.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                Intent intent = new Intent(getBaseContext(), SingleWordActivity.class);
+                intent.putExtra("TOUCHED_WORD_INDEX", touchedWordIndex);
+                startActivity(intent);
+
+                // open some shitty dialog.
+                return false;
+            }
+        });
+
+
 
     }
 
     private int getWordIndex(int offset) {
+
+
+//        Comparator<Word> containedComp = new Comparator<Word>() {
+//            public int compare(Word w1, Word w2) {
+//
+//                if ((w2.getBegin() >= w1.getBegin()) && (w2.getEnd() <= w1.getEnd())) {
+//                    return 0;
+//                }
+//
+//                if (w1.getBegin() < w2.getBegin()) {
+//                    return 1;
+//                }
+//
+//                return -1;
+//            }
+//        };
+
+        for (int i=0; i< words_array.size(); i++) {
+            Word word = words_array.get(i);
+
+            if (word != null && word.getBegin() <= offset && offset <= word.getEnd()) {
+                return i;
+            }
+        }
+
+//        int index = Collections.binarySearch(words_array, new Word(offset, offset, null), containedComp);
 
 
         return -1;
@@ -244,6 +317,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        TextView main_text = (TextView) findViewById(R.id.main_text_view);
 
         if (id == R.id.nav_change_font) {
             // Handle the camera action
