@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,6 +23,9 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 
 import java.util.Locale;
+import java.text.BreakIterator;
+import java.util.Locale;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnInitListener {
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity
     private TextToSpeech myTTS;
     //status check code
     private int MY_DATA_CHECK_CODE = 0;
+
+    ArrayList<Word> words_array = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +88,24 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView text_view = (TextView) findViewById(R.id.main_text_view);
+        String text_str = text_view.getText().toString();
+        BreakIterator bi = BreakIterator.getWordInstance(Locale.US);
+        bi.setText(text_str);
+
+        int lastIndex = bi.first();
+        while (lastIndex != BreakIterator.DONE) {
+            int firstIndex = lastIndex;
+            lastIndex = bi.next();
+
+            if (lastIndex != BreakIterator.DONE
+                    && Character.isLetterOrDigit(
+                    text_str.charAt(firstIndex))) {
+                String value = text_str.substring(firstIndex, lastIndex);
+                words_array.add(new Word(firstIndex, lastIndex, value));
+            }
+        }
     }
 
 
