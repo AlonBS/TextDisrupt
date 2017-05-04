@@ -34,7 +34,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener,
+        TextViewInterface {
 
     //TTS object
     private TextToSpeech myTTS;
@@ -73,8 +74,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-
     }
 
 
@@ -95,6 +94,10 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    public TextView getTextView() {
+        return text_view;
+    }
 
     public void buildWordsArray(String text_str) {
 

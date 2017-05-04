@@ -4,24 +4,26 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class SingleWordActivity extends AppCompatActivity {
+public class SingleWordActivity extends AppCompatActivity implements TextViewInterface{
 
     public static final String WORD_TO_DISPLAY = "WORD_TO_DISPLAY";
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private int wordIndex = -1;
     private ArrayList<Word> words_array;
-
-
+    HashMap<Integer, SingleWordFragment> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class SingleWordActivity extends AppCompatActivity {
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(wordIndex);
         mPager.setPageTransformer(true, new DepthPageTransformer());
+
     }
 
     @Override
@@ -75,7 +78,12 @@ public class SingleWordActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-            SingleWordFragment fragment = SingleWordFragment.getInstance();
+            if (!map.containsKey(position)) {
+                map.put(position, SingleWordFragment.getInstance());
+            }
+
+            SingleWordFragment fragment = map.get(position);
+
 
             Bundle bundle = new Bundle();
             bundle.putString(WORD_TO_DISPLAY, words_array.get(position).getValue());
@@ -94,6 +102,16 @@ public class SingleWordActivity extends AppCompatActivity {
 
             return words_array.size();
         }
+    }
+
+    public TextView getTextView() {
+        int currentPosition = mPager.getCurrentItem();
+
+        if (!map.containsKey(currentPosition)) {
+            map.put(currentPosition, SingleWordFragment.getInstance());
+        }
+
+        return map.get(currentPosition).getTextView();
     }
 
 }

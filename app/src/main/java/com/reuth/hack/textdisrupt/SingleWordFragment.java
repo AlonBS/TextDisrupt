@@ -15,6 +15,9 @@ import static com.reuth.hack.textdisrupt.SingleWordActivity.WORD_TO_DISPLAY;
 
 public class SingleWordFragment extends Fragment {
 
+    private TextView mTextView;
+    private String presentedWord = null;
+
     public static SingleWordFragment getInstance() {
         return new SingleWordFragment();
     }
@@ -27,9 +30,14 @@ public class SingleWordFragment extends Fragment {
         Bundle bundle = getArguments();
         View rootView = inflater.inflate(R.layout.fragment_single_word, container, false);
 
-        TextView textView = (TextView) rootView.findViewById(R.id.scrollViewTextView);
-        textView.setText(bundle.getString(WORD_TO_DISPLAY));
+        mTextView = (TextView) rootView.findViewById(R.id.scrollViewTextView);
+        mTextView.setText(bundle.getString(WORD_TO_DISPLAY));
+        presentedWord = bundle.getString(WORD_TO_DISPLAY);
 
         return rootView;
+    }
+
+    public TextView getTextView(){
+        return mTextView;
     }
 }
