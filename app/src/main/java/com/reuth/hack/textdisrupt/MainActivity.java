@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String displayedText = getIntent().getStringExtra("IMPORTED_TEXT");
+
+        ((TextView)findViewById(R.id.main_text_view)).setText(displayedText);
+
         init_app();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
