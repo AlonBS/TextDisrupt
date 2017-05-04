@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.Layout;
 import android.view.MotionEvent;
+import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,32 +81,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void alon(View v) {
-
-        TextView tv = (TextView) findViewById(R.id.main_text_view);
-
-        tv.setOnTouchListener( new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                Layout layout = ((TextView)v).getLayout();
-                int x = (int) event.getX();
-                int y = (int) event.getY();
-                if (layout != null) {
-
-                    int line = layout.getLineForVertical(y);
-                    int offset = layout.getOffsetForHorizontal(line, x);
-
-                    String offsetStr =  String.valueOf(offset);
-
-                    Snackbar.make(v, offsetStr, Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                }
-
-                return false;
-            }
-        });
-
         Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
