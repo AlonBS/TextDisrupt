@@ -347,7 +347,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_emphasize_margin) {
 
         } else if (id == R.id.nav_text_to_speach) {
-
+            myTTS.speak(main_text.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "my_speak");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
