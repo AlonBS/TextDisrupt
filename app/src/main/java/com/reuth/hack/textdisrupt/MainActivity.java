@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.text.Layout;
 import android.view.MotionEvent;
 import android.util.TypedValue;
@@ -24,8 +23,6 @@ import android.widget.Toast;
 
 import java.text.BreakIterator;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
@@ -277,6 +274,7 @@ public class MainActivity extends AppCompatActivity
 
     private void lior(View v) {
         Intent myIntent = new Intent(this, SingleWordActivity.class);
+//        Intent myIntent = new Intent(this, SingleWordActivity.class);
         this.startActivity(myIntent);
     }
 

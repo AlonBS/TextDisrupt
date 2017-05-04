@@ -1,34 +1,36 @@
 package com.reuth.hack.textdisrupt;
 
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 public class SingleWordActivity extends AppCompatActivity {
 
     private static final int NUM_PAGES = 5;
     public static final String PAGE_NUMBER = "pageNumber";
-
     private ViewPager mPager;
-
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
     private PagerAdapter mPagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_screen_slide);
+        setContentView(R.layout.activity_new_signle_word);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         int s = getIntent().getIntExtra("TOUCHED_WORD_INDEX", -1);
-
         Toast.makeText(this, String.valueOf(s), Toast.LENGTH_LONG).show();
+
 
 
         // Instantiate a ViewPager and a PagerAdapter.
@@ -75,4 +77,5 @@ public class SingleWordActivity extends AppCompatActivity {
             return NUM_PAGES;
         }
     }
+
 }

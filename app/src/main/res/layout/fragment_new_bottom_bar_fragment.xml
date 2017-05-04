@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.reuth.hack.textdisrupt.BottomBarFragment"
+    tools:showIn="@layout/activity_new_signle_word">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_change_font"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="שינוי פונט" />
+
+                <Button
+                    android:id="@+id/btn_change_size_smaller"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הקטן טקסט" />
+
+                <Button
+                    android:id="@+id/btn_change_size_bigger"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הגדל טקסט" />
+
+                <Button
+                    android:id="@+id/btn_change_line_spacing_smaller"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הקטן מרווח שורות" />
+
+                <Button
+                    android:id="@+id/btn_change_line_spacing_bigger"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הגדל מרווח שורות" />
+
+                <Button
+                    android:id="@+id/btn_emphasize_prefix"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הדגש תחיליות"
+
+
+                    />
+
+                <Button
+                    android:id="@+id/btn_emphasize_suffix"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הדגש סופיות" />
+
+                <Button
+                    android:id="@+id/btn_emphasize_middle"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הדגש אמצעיות" />
+
+                <Button
+                    android:id="@+id/btn_emphasize_margin"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הדגש שוליים" />
+
+                <Button
+                    android:id="@+id/btn_text_to_speach"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="הקראה" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

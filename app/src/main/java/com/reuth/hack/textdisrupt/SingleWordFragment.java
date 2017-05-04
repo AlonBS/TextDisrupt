@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import static com.reuth.hack.textdisrupt.SingleWordActivity.PAGE_NUMBER;
+
 /**
  * Created by liorr on 5/4/17.
  */
@@ -18,7 +20,7 @@ public class SingleWordFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        int pageNumber = bundle.getInt(SingleWordActivity.PAGE_NUMBER);
+        int pageNumber = bundle.getInt(PAGE_NUMBER);
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_single_word, container, false);
