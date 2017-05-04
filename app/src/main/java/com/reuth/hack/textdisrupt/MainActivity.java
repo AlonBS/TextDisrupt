@@ -2,8 +2,10 @@ package com.reuth.hack.textdisrupt;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.text.Layout;
 import android.view.MotionEvent;
 import android.util.TypedValue;
@@ -21,12 +23,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnInitListener {
+
+    //TTS object
+    private TextToSpeech myTTS;
+    //status check code
+    private int MY_DATA_CHECK_CODE = 0;
+
+    ArrayList<Word> words_array = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createTTS();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -90,11 +100,66 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView text_view = (TextView) findViewById(R.id.main_text_view);
+        String text_str = text_view.getText().toString();
+        BreakIterator bi = BreakIterator.getWordInstance(Locale.US);
+        bi.setText(text_str);
+
+        int lastIndex = bi.first();
+        while (lastIndex != BreakIterator.DONE) {
+            int firstIndex = lastIndex;
+            lastIndex = bi.next();
+
+            if (lastIndex != BreakIterator.DONE
+                    && Character.isLetterOrDigit(
+                    text_str.charAt(firstIndex))) {
+                String value = text_str.substring(firstIndex, lastIndex);
+                words_array.add(new Word(firstIndex, lastIndex, value));
+            }
+        }
+    }
+
+
+    //setup TTS
+    public void onInit(int initStatus) {
+
+        //check for successful instantiation
+        if (initStatus == TextToSpeech.SUCCESS) {
+
+            if(myTTS.isLanguageAvailable(Locale.ENGLISH)==TextToSpeech.LANG_AVAILABLE)
+                myTTS.setLanguage(Locale.ENGLISH);
+        }
+        else if (initStatus == TextToSpeech.ERROR) {
+            Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void mika(View v) {
-        Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        myTTS.speak("hello world", TextToSpeech.QUEUE_FLUSH, null, "my_speak");
+    }
+
+    private void createTTS(){
+        //check for TTS data
+        Intent checkTTSIntent = new Intent();
+        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+    }
+
+    //act on result of TTS data check
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == MY_DATA_CHECK_CODE) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                //the user has the necessary data - create the TTS
+                myTTS = new TextToSpeech(this, this);
+            } else {
+                //no data - install it now
+                Intent installTTSIntent = new Intent();
+                installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installTTSIntent);
+            }
+        }
     }
 
 //    private void alon(View v) {
@@ -183,9 +248,21 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_change_font) {
             // Handle the camera action
         } else if (id == R.id.nav_change_size_smaller) {
+            float text_size = main_text.getTextSize();
+//            Toast.makeText(this, Float.toString(text_size), Toast.LENGTH_LONG).show();
+            main_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size - 10);
 
         } else if (id == R.id.nav_change_size_bigger) {
+            float text_size = main_text.getTextSize();
+//                     Toast.makeText(this, Float.toString(text_size), Toast.LENGTH_LONG).show();
+            main_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size + 10);
 
+        } else if (id == R.id.nav_change_line_spacing_smaller) {
+            float line_spacing = main_text.getLineSpacingExtra();
+            main_text.setLineSpacing (line_spacing - 10, 1);
+        } else if (id == R.id.nav_change_line_spacing_bigger) {
+            float line_spacing = main_text.getLineSpacingExtra();
+            main_text.setLineSpacing (line_spacing + 10, 1);
         } else if (id == R.id.nav_emphasize_prefix) {
 
         } else if (id == R.id.nav_emphasize_middle) {
