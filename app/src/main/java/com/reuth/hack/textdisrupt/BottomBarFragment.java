@@ -23,7 +23,7 @@ public class BottomBarFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bottom_bar_fragment, container, false);
 
-        enlargeText(getContext(), view, "some text as param");
+        enlargeText(getContext(), view, "some4444 text as param");
         enlargeText(getContext(), view, "some text as param");
         enlargeText(getContext(), view, "some text as param");
         enlargeText(getContext(), view, "some text as param");
