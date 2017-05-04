@@ -2,6 +2,7 @@ package com.reuth.hack.textdisrupt;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.TypedValue;
@@ -17,14 +18,24 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnInitListener {
+
+    //TTS object
+    private TextToSpeech myTTS;
+    //status check code
+    private int MY_DATA_CHECK_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createTTS();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -73,9 +84,46 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
+    //setup TTS
+    public void onInit(int initStatus) {
+
+        //check for successful instantiation
+        if (initStatus == TextToSpeech.SUCCESS) {
+
+            if(myTTS.isLanguageAvailable(Locale.ENGLISH)==TextToSpeech.LANG_AVAILABLE)
+                myTTS.setLanguage(Locale.ENGLISH);
+        }
+        else if (initStatus == TextToSpeech.ERROR) {
+            Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void mika(View v) {
-        Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        myTTS.speak("hello world", TextToSpeech.QUEUE_FLUSH, null, "my_speak");
+    }
+
+    private void createTTS(){
+        //check for TTS data
+        Intent checkTTSIntent = new Intent();
+        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+    }
+
+    //act on result of TTS data check
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == MY_DATA_CHECK_CODE) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                //the user has the necessary data - create the TTS
+                myTTS = new TextToSpeech(this, this);
+            } else {
+                //no data - install it now
+                Intent installTTSIntent = new Intent();
+                installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installTTSIntent);
+            }
+        }
     }
 
     private void alon(View v) {
