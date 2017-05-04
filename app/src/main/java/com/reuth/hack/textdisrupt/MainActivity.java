@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity
 
         //check for successful instantiation
         if (initStatus == TextToSpeech.SUCCESS) {
-
             if(myTTS.isLanguageAvailable(Locale.ENGLISH)==TextToSpeech.LANG_AVAILABLE)
                 myTTS.setLanguage(Locale.ENGLISH);
         }
@@ -227,8 +226,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onLongClick(View v) {
 
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("TOUCHED_WORD_ARRAY", words_array);
+
                 Intent intent = new Intent(getBaseContext(), SingleWordActivity.class);
                 intent.putExtra("TOUCHED_WORD_INDEX", touchedWordIndex);
+                intent.putExtra("TOUCHED_WORD_BUNDLE", bundle);
+
                 startActivity(intent);
 
                 // open some shitty dialog.
