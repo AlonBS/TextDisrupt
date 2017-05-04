@@ -23,7 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,34 +60,6 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // TODO - integrate with Fragment of Resisi
-        Button mikaButton = (Button) findViewById(R.id.mikaButton);
-        mikaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mika(v);
-            }
-        });
-
-
-//        Button alonButton = (Button) findViewById(R.id.alonButton);
-//        alonButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                alon(v);
-//            }
-//        });
-
-        Button liorButton = (Button) findViewById(R.id.liorButton);
-        liorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lior(v);
-            }
-        });
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -169,10 +140,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void mika(View v) {
-        myTTS.speak("hello world", TextToSpeech.QUEUE_FLUSH, null, "my_speak");
-    }
-
     private void createTTS(){
         //check for TTS data
         Intent checkTTSIntent = new Intent();
@@ -195,11 +162,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
-//    private void alon(View v) {
-//        Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
-//    }
 
 
     // This is used in order to calulate the current word that has being touched
@@ -294,12 +256,6 @@ public class MainActivity extends AppCompatActivity
 
 
         return -1;
-    }
-
-    private void lior(View v) {
-        Intent myIntent = new Intent(this, SingleWordActivity.class);
-//        Intent myIntent = new Intent(this, SingleWordActivity.class);
-        this.startActivity(myIntent);
     }
 
     @Override
