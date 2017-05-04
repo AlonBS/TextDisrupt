@@ -38,13 +38,30 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Button alonButton = (Button) findViewById(R.id.alonButton);
-        alonButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alon(v);
+        Comparator<Word> c = new Comparator<Word>() {
+            public int compare(Word w1, Word w2) {
+
+                if ((w2.getFirst() >= w1.getFirst()) && (w2.getSecond() <= w1.getSecond())) {
+                    return 0;
+                }
+
+                if (w1.getFirst() < w2.getFirst()) {
+                    return 1;
+                }
+
+                return -1;
             }
-        });
+        };
+
+
+        alon();
+//        Button alonButton = (Button) findViewById(R.id.alonButton);
+//        alonButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                alon(v);
+//            }
+//        });
 
         Button liorButton = (Button) findViewById(R.id.liorButton);
         liorButton.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +97,44 @@ public class MainActivity extends AppCompatActivity
                 .setAction("Action", null).show();
     }
 
-    private void alon(View v) {
-        Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+//    private void alon(View v) {
+//        Snackbar.make(v, "Mika", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show();
+//    }
+
+    private void alon() {
+
+        TextView tv = (TextView) findViewById(R.id.main_text_view);
+
+        tv.setOnTouchListener( new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Layout layout = ((TextView)v).getLayout();
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+                if (layout != null) {
+
+                    int line = layout.getLineForVertical(y);
+                    int offset = layout.getOffsetForHorizontal(line, x);
+
+                    String offsetStr =  String.valueOf(offset);
+
+                    Snackbar.make(v, offsetStr, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                }
+
+                return false;
+            }
+        });
+
+    }
+
+    private int getWordIndex(int offset) {
+
+
+        return -1;
     }
 
     private void lior(View v) {
