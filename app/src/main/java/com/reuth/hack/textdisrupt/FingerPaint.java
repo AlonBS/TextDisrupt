@@ -2,6 +2,7 @@ package com.reuth.hack.textdisrupt;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -26,12 +27,18 @@ public class FingerPaint extends Activity {
         setContentView(R.layout.activity_finger_paint);
         View linearLayout =  findViewById(R.id.finger_paint_linear_layout);
 
+        Intent intent = getIntent();
+        String str = "";
+        if (intent != null) {
+            str = intent.getStringExtra("WORD_TO_BE_PAINTED");
+        }
+
         dv = new DrawingView(this);
-        dv.setText("abcdefghi");
-        dv.setTextSize(80);
+        dv.setText(str);
+        dv.setTextSize(60);
         dv.setPadding(5, 3, 0, 3);
         dv.setTypeface(Typeface.DEFAULT_BOLD);
-        dv.setGravity(Gravity.LEFT | Gravity.CENTER);
+        dv.setGravity(Gravity.CENTER);
         dv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         ((LinearLayout) linearLayout).addView(dv);

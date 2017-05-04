@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,7 +34,7 @@ public class SingleWordActivity extends AppCompatActivity implements TextViewInt
         Bundle bundle = getIntent().getBundleExtra("TOUCHED_WORD_BUNDLE");
         words_array = bundle.getParcelableArrayList("TOUCHED_WORD_ARRAY");
 
-        Toast.makeText(this, String.valueOf(wordIndex), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, String.valueOf(wordIndex), Toast.LENGTH_LONG).show();
 
 
 
