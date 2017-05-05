@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,7 +105,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
     }
 
     public void enlargeText(View mainView) {
-        Button b = (Button) mainView.findViewById(R.id.btn_change_size_bigger);
+        ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_change_size_bigger);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +117,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
     }
 
     public void reduceText(View mainView) {
-        Button b = (Button) mainView.findViewById(R.id.btn_change_size_smaller);
+        ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_change_size_smaller);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +129,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
     }
 
     public void reduceSpacing(View mainView) {
-        Button b = (Button) mainView.findViewById(R.id.btn_change_line_spacing_smaller);
+        ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_change_line_spacing_smaller);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +142,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 
 
     public void enlargeSpacing(View mainView) {
-        Button b = (Button) mainView.findViewById(R.id.btn_change_line_spacing_bigger);
+        ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_change_line_spacing_bigger);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +155,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 
 
     public void paintText(final Context context, View mainView) {
-        Button b = (Button) mainView.findViewById(R.id.btn_finger_paint);
+        ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_finger_paint);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +169,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 
 
     public void textToSpeech(View mainView) {
-        final Button b = (Button) mainView.findViewById(R.id.btn_text_to_speach);
+        final ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_text_to_speach);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
