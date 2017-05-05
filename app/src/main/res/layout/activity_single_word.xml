@@ -7,16 +7,16 @@
     tools:context="com.reuth.hack.textdisrupt.SingleWordActivity">
 
     <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="?attr/colorPrimary"-->
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="?attr/colorPrimary"-->
+    <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
 
     <!--</android.support.design.widget.AppBarLayout>-->
 
@@ -32,12 +32,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
-            android:layout_weight="7"/>
+            android:layout_weight="7" />
 
-            <!--<include layout="@layout/view_pager_bla"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_weight="7"/>-->
+        <!--<include layout="@layout/view_pager_bla"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_weight="7"/>-->
 
         <ImageView
             android:id="@+id/imageView3"
@@ -45,13 +45,12 @@
             android:layout_height="57dp"
             app:srcCompat="@drawable/swipe_both" />
 
-        <include layout="@layout/content_single_word" android:layout_height="wrap_content"
+        <include
+            layout="@layout/content_single_word"
             android:layout_width="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-
 
 
 </android.support.design.widget.CoordinatorLayout>
