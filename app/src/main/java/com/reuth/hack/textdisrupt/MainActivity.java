@@ -1,22 +1,14 @@
 package com.reuth.hack.textdisrupt;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.text.Layout;
 import android.view.MotionEvent;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -178,9 +170,6 @@ public class MainActivity extends AppCompatActivity
                     int offset = layout.getOffsetForHorizontal(line, x);
 
                     touchedWordIndex = getWordIndex(offset);
-
-//                    Snackbar.make(v, "touchedWordIndex: " + touchedWordIndex, Snackbar.LENGTH_LONG)
-//                            .setAction("Action", null).show();
                 }
 
                 return false;
@@ -215,22 +204,6 @@ public class MainActivity extends AppCompatActivity
 
     private int getWordIndex(int offset) {
 
-
-//        Comparator<Word> containedComp = new Comparator<Word>() {
-//            public int compare(Word w1, Word w2) {
-//
-//                if ((w2.getBegin() >= w1.getBegin()) && (w2.getEnd() <= w1.getEnd())) {
-//                    return 0;
-//                }
-//
-//                if (w1.getBegin() < w2.getBegin()) {
-//                    return 1;
-//                }
-//
-//                return -1;
-//            }
-//        };
-
         for (int i = 0; i < words_array.size(); i++) {
             Word word = words_array.get(i);
 
@@ -238,9 +211,6 @@ public class MainActivity extends AppCompatActivity
                 return i;
             }
         }
-
-//        int index = Collections.binarySearch(words_array, new Word(offset, offset, null), containedComp);
-
 
         return -1;
     }
@@ -284,49 +254,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_change_font) {
 
-            AlertDialog.Builder b = new AlertDialog.Builder(this);
-            b.setTitle("Example");
-            String[] types = {"By Zip", "By Category", "12"};
-            b.setItems(types, new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    dialog.dismiss();
-                    switch (which) {
-                        case 0:
-
-                            text_view.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/David.ttf"));
-                            break;
-                        case 1:
-                            text_view.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/TNR.ttf"));
-                            break;
-                        case 2:
-                            text_view.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Calibri.ttf"));
-                            break;
-                    }
-                }
-
-            });
-
-            b.show();
-
-            text_view.setBackground(getDrawable(R.drawable.back));
-
-
-            // Handle the camera action
         } else if (id == R.id.nav_change_size_smaller) {
-            float text_size = text_view.getTextSize();
-            text_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size - 10);
+
         } else if (id == R.id.nav_change_size_bigger) {
-            float text_size = text_view.getTextSize();
-            text_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size + 10);
+
         } else if (id == R.id.nav_change_line_spacing_smaller) {
-            float line_spacing = text_view.getLineSpacingExtra();
-            text_view.setLineSpacing(line_spacing - 10, 1);
+
         } else if (id == R.id.nav_change_line_spacing_bigger) {
-            float line_spacing = text_view.getLineSpacingExtra();
-            text_view.setLineSpacing(line_spacing + 10, 1);
+
         } else if (id == R.id.nav_emphasize_prefix) {
             boolean emphBegin = shouldEmphBegin;
             for (Word w : this.words_array) {

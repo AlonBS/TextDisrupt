@@ -10,50 +10,46 @@
         android:id="@+id/text_options_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="4.62"
         android:animateLayoutChanges="true"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/holo_blue_light" />
 
     <EditText
         android:id="@+id/imported_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="70.00"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="70.00"
         android:ems="10"
+        android:gravity="top"
         android:hint="Paste your text here or load exercises."
+        android:imeOptions="actionDone"
+        android:inputType="textImeMultiLine"
         android:text="Paste your text here or load exercises."
         android:textStyle="italic"
-        android:inputType="textImeMultiLine"
-        android:imeOptions="actionDone"
-        android:gravity="top"
-
-
 
         />
 
     <Button
         android:id="@+id/next_screen_button"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="match_parent"
+        android:layout_width="162dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:layout_weight="10"
-        android:background="@drawable/side_nav_bar"
         android:elevation="0dp"
         android:fadeScrollbars="false"
         android:text="Next"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         tools:style="@style/Widget.AppCompat.Button.Borderless.Colored" />
 
 </LinearLayout>
