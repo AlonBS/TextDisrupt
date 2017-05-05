@@ -1,22 +1,14 @@
 package com.reuth.hack.textdisrupt;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.text.Layout;
 import android.view.MotionEvent;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -178,9 +170,6 @@ public class MainActivity extends AppCompatActivity
                     int offset = layout.getOffsetForHorizontal(line, x);
 
                     touchedWordIndex = getWordIndex(offset);
-
-//                    Snackbar.make(v, "touchedWordIndex: " + touchedWordIndex, Snackbar.LENGTH_LONG)
-//                            .setAction("Action", null).show();
                 }
 
                 return false;
@@ -215,22 +204,6 @@ public class MainActivity extends AppCompatActivity
 
     private int getWordIndex(int offset) {
 
-
-//        Comparator<Word> containedComp = new Comparator<Word>() {
-//            public int compare(Word w1, Word w2) {
-//
-//                if ((w2.getBegin() >= w1.getBegin()) && (w2.getEnd() <= w1.getEnd())) {
-//                    return 0;
-//                }
-//
-//                if (w1.getBegin() < w2.getBegin()) {
-//                    return 1;
-//                }
-//
-//                return -1;
-//            }
-//        };
-
         for (int i = 0; i < words_array.size(); i++) {
             Word word = words_array.get(i);
 
@@ -238,9 +211,6 @@ public class MainActivity extends AppCompatActivity
                 return i;
             }
         }
-
-//        int index = Collections.binarySearch(words_array, new Word(offset, offset, null), containedComp);
-
 
         return -1;
     }
@@ -287,7 +257,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_change_size_smaller) {
 
         } else if (id == R.id.nav_change_size_bigger) {
-            float text_size = text_view.getTextSize();
 
         } else if (id == R.id.nav_change_line_spacing_smaller) {
 
