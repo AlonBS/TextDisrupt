@@ -284,49 +284,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_change_font) {
 
-            AlertDialog.Builder b = new AlertDialog.Builder(this);
-            b.setTitle("Example");
-            String[] types = {"By Zip", "By Category", "12"};
-            b.setItems(types, new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    dialog.dismiss();
-                    switch (which) {
-                        case 0:
-
-                            text_view.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/David.ttf"));
-                            break;
-                        case 1:
-                            text_view.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/TNR.ttf"));
-                            break;
-                        case 2:
-                            text_view.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Calibri.ttf"));
-                            break;
-                    }
-                }
-
-            });
-
-            b.show();
-
-            text_view.setBackground(getDrawable(R.drawable.back));
-
-
-            // Handle the camera action
         } else if (id == R.id.nav_change_size_smaller) {
-            float text_size = text_view.getTextSize();
-            text_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size - 10);
+
         } else if (id == R.id.nav_change_size_bigger) {
             float text_size = text_view.getTextSize();
-            text_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size + 10);
+
         } else if (id == R.id.nav_change_line_spacing_smaller) {
-            float line_spacing = text_view.getLineSpacingExtra();
-            text_view.setLineSpacing(line_spacing - 10, 1);
+
         } else if (id == R.id.nav_change_line_spacing_bigger) {
-            float line_spacing = text_view.getLineSpacingExtra();
-            text_view.setLineSpacing(line_spacing + 10, 1);
+
         } else if (id == R.id.nav_emphasize_prefix) {
             boolean emphBegin = shouldEmphBegin;
             for (Word w : this.words_array) {
