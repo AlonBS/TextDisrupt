@@ -27,15 +27,16 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_weight="70.00"
+        android:background="@drawable/back"
         android:ems="10"
         android:gravity="top"
         android:hint="Paste your text here or load exercises."
         android:imeOptions="actionDone"
-        android:inputType="textImeMultiLine"
+        android:inputType="textMultiLine"
+        android:lineSpacingMultiplier="1.2"
+        android:padding="20dp"
         android:text="Paste your text here or load exercises."
-        android:textStyle="italic"
-
-        />
+        android:textStyle="italic" />
 
     <Button
         android:id="@+id/next_screen_button"

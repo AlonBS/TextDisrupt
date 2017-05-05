@@ -12,8 +12,8 @@
 
     <!-- View border color and width -->
     <stroke
-        android:width="3dp"
-        android:color="#FF0011" >
+        android:width="2dp"
+        android:color="#afafaf" >
     </stroke>
 
     <!-- The radius makes the corners rounded -->
