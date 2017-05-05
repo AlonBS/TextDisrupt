@@ -3,58 +3,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_change_font"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="שינוי פונט" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="מסך הבית" />
         <item
-            android:id="@+id/nav_change_size_smaller"
+            android:id="@+id/nav_contact"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="הקטן טקסט" />
+            android:title="צור קשר" />
         <item
-            android:id="@+id/nav_change_size_bigger"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="הגדל טקסט" />
-        <item
-            android:id="@+id/nav_change_line_spacing_smaller"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="הקטן מרווח שורות" />
-        <item
-            android:id="@+id/nav_change_line_spacing_bigger"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="הגדל מרווח שורות" />
-        <item
-            android:id="@+id/nav_emphasize_prefix"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="הדגש תחיליות" />
-        <item
-            android:id="@+id/nav_emphasize_suffix"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="הדגש סופיות" />
-        <item
-            android:id="@+id/nav_emphasize_middle"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="הדגש אמצעיות" />
-        <item
-            android:id="@+id/nav_emphasize_margin"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="הדגש שוליים" />
-        <item
-            android:id="@+id/nav_text_to_speach"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="הקראה" />
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="אודות" />
+
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+
 
 </menu>
