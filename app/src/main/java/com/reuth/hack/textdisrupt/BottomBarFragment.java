@@ -398,7 +398,6 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 
 
 
-
     public void moveAround(View mainView) {
 //        Button b = (Button) mainView.findViewById(R.id.btn_move_around);
 //        b.setOnClickListener(new View.OnClickListener() {
@@ -433,38 +432,5 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 //            }
 //        });
     }
-
-//    public void emphMid(View mainView) {
-//        Button b = (Button) mainView.findViewById(R.id.btn_change_line_spacing_bigger);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TextView tv = ((TextViewInterface) getActivity()).getTextView();
-//                float line_spacing = tv.getLineSpacingExtra();
-//                tv.setLineSpacing (line_spacing + 10, 1);
-//            }
-//        });
-//    }
-
-//    public void emphSuf(View mainView) {
-//        Button b = (Button) mainView.findViewById(R.id.btn_change_line_spacing_bigger);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TextView tv = ((TextViewInterface) getActivity()).getTextView();
-//                float line_spacing = tv.getLineSpacingExtra();
-//                tv.setLineSpacing (line_spacing + 10, 1);
-//            }
-//        });
-//    }
-
-
-
-
-
-
-
-
-
 
 }
