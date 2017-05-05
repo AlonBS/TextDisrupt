@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
