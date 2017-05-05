@@ -29,6 +29,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="מסגור טקטס" />
 
                 <Button
@@ -37,6 +38,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="שינוי פונט" />
 
                 <Button
@@ -45,6 +47,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הקטן טקסט" />
 
                 <Button
@@ -53,6 +56,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הגדל טקסט" />
 
                 <Button
@@ -61,6 +65,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הקטן מרווח שורות" />
 
                 <Button
@@ -69,6 +74,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הגדל מרווח שורות" />
 
                 <Button
@@ -77,10 +83,8 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="הדגש תחיליות"
-
-
-                    />
+                    android:background="@drawable/bottom_bar_menu"
+                    android:text="הדגש תחיליות" />
 
                 <Button
                     android:id="@+id/btn_emphasize_suffix"
@@ -88,6 +92,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הדגש סופיות" />
 
                 <Button
@@ -96,6 +101,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הדגש אמצעיות" />
 
                 <Button
@@ -104,6 +110,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הדגש שוליים" />
 
                 <Button
@@ -112,6 +119,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הקראה" />
 
                 <Button
@@ -120,6 +128,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="הסר ניקוד" />
 
                 <Button
@@ -128,6 +137,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="צייר" />
 
             </LinearLayout>

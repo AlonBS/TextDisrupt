@@ -26,13 +26,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener,
+        implements NavigationView.OnNavigationItemSelectedListener,
         TextViewInterface {
-
-    //TTS object
-    private TextToSpeech myTTS;
-    //status check code
-    private int MY_DATA_CHECK_CODE = 0;
 
     ArrayList<Word> words_array = new ArrayList<>();
     private int touchedWordIndex = -1;
@@ -70,8 +65,6 @@ public class MainActivity extends AppCompatActivity
 
 
     public void init_app() {
-
-        createTTS();
 
         // build words array (will be used by other activities of this app)
         text_view = (TextView) findViewById(R.id.main_text_view);
@@ -113,43 +106,6 @@ public class MainActivity extends AppCompatActivity
         text_view.setText(span_str);
         text_view.setMovementMethod(LinkMovementMethod.getInstance());
     }
-
-
-    //setup TTS
-    public void onInit(int initStatus) {
-
-        //check for successful instantiation
-        if (initStatus == TextToSpeech.SUCCESS) {
-            if (myTTS.isLanguageAvailable(Locale.ENGLISH) == TextToSpeech.LANG_AVAILABLE)
-                myTTS.setLanguage(Locale.ENGLISH);
-        } else if (initStatus == TextToSpeech.ERROR) {
-            Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void createTTS() {
-        //check for TTS data
-        Intent checkTTSIntent = new Intent();
-        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
-    }
-
-    //act on result of TTS data check
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == MY_DATA_CHECK_CODE) {
-            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-                //the user has the necessary data - create the TTS
-                myTTS = new TextToSpeech(this, this);
-            } else {
-                //no data - install it now
-                Intent installTTSIntent = new Intent();
-                installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                startActivity(installTTSIntent);
-            }
-        }
-    }
-
 
     // This is used in order to calulate the current word that has being touched
     private void setTextViewOnLongTouchListener() {
@@ -322,7 +278,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_emphasize_margin) {
 
         } else if (id == R.id.nav_text_to_speach) {
-            myTTS.speak(text_view.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "my_speak");
+
         }
         text_view.setText(span_str);
         text_view.setMovementMethod(LinkMovementMethod.getInstance());
