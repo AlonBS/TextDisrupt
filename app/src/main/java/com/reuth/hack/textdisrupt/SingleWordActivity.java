@@ -77,9 +77,6 @@ public class SingleWordActivity extends AppCompatActivity {
 
             Bundle bundle = new Bundle();
             bundle.putString(WORD_TO_DISPLAY, words_array.get(position).getValue());
-
-            String orig = words_array.get(position).getValue();
-
             fragment.setArguments(bundle);
             return fragment;
         }

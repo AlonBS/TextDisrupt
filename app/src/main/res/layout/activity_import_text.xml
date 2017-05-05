@@ -34,7 +34,6 @@
         android:inputType="textMultiLine"
         android:gravity="top"
         android:background="@android:color/white"
-
         />
 
     <Button
