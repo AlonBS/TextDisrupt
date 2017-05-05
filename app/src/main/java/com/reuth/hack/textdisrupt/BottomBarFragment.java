@@ -134,7 +134,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
             public void onClick(View v) {
                 TextView tv = ((TextViewInterface) getActivity()).getTextView();
                 float line_spacing = tv.getLineSpacingExtra();
-                tv.setLineSpacing(line_spacing - 10, 1);
+                tv.setLineSpacing(Math.max(line_spacing - 10, 0), 1);
             }
         });
     }
@@ -181,7 +181,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
             public void onClick(View v) {
                 TextView tv = ((TextViewInterface) getActivity()).getTextView();
                 float line_spacing = tv.getLineSpacingExtra();
-                tv.setLineSpacing(line_spacing + 10, 1);
+                tv.setLineSpacing (Math.min(line_spacing + 10, 100), 1);
             }
         });
     }
@@ -291,6 +291,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 
 
     }
+
 
 
 //    public void emphMid(View mainView) {
