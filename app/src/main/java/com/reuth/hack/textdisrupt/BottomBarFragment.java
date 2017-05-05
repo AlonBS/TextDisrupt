@@ -55,10 +55,9 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
         reduceSpacing(view);
         paintText(getContext(), view);
         textToSpeech(view);
-
+        emphText(view);
         // extra options
         setExtraOptions(view);
-
 
 
         return view;
@@ -74,8 +73,8 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
             if (myTTS.isLanguageAvailable(Locale.ENGLISH) == TextToSpeech.LANG_AVAILABLE)
                 myTTS.setLanguage(Locale.ENGLISH);
         } else if (initStatus == TextToSpeech.ERROR) {
-                Toast.makeText(getActivity(), "Sorry! Text To Speech failed...",
-                        Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Sorry! Text To Speech failed...",
+                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -179,32 +178,30 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
             }
         });
     }
+
     public void emphText(View mainView) {
-//        Button b = (Button) mainView.findViewById(R.id.btn_emphasize_text);
-//        b.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//            }
-//        });
-
-        AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
-        b.setTitle("Select Emphasis:");
-        String[] types = {"Prefixes", "Middle Letters", "Suffixes"};
-        b.setItems(types, new DialogInterface.OnClickListener() {
-
+        ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_emphasize_text);
+        b.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                emphCurrentText(dialog, which, true);
+            public void onClick(View v) {
+
+                AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
+                b.setTitle("Select Emphasis:");
+                String[] types = {"Prefixes", "Middle Letters", "Suffixes"};
+                b.setItems(types, new DialogInterface.OnClickListener() {
+
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        emphCurrentText(dialog, which, true);
+                    }
+                });
+
+                b.show();
+
             }
         });
-
-        b.show();
-
-
     }
 
     private void eraseCurrentEmph(TextView tv, SpannableString span_str) {
@@ -215,7 +212,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
                 ForegroundColorSpan.class);
         int spans_length = spans.length;
         if (spans_length > 0) {
-            for (ForegroundColorSpan span: spans) {
+            for (ForegroundColorSpan span : spans) {
                 span_str.removeSpan(span);
             }
         }
@@ -290,8 +287,6 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
                 }
 
 
-
-
                 lastEmphChoice = 1;
                 break;
 
@@ -343,7 +338,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
                 final TextView tv = ((TextViewInterface) getActivity()).getTextView();
                 AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
                 b.setTitle("Select option:");
-                String[] types = {"שינוי פונט", "הדגשת טקסט", "תחימת טקסט",
+                String[] types = {"שינוי פונט", "תחימת טקסט",
                         "הוספה / הסרה של ניקוד", "תזוזה חופשית"};
 
                 b.setItems(types, new DialogInterface.OnClickListener() {
@@ -358,15 +353,12 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
                                 changeFont(mainView);
                                 break;
                             case 1:
-                                emphText(mainView);
-                                break;
-                            case 2:
                                 addBordersToText(mainView);
                                 break;
-                            case 3:
+                            case 2:
                                 unVowelsText(mainView);
                                 break;
-                            case 4:
+                            case 3:
                                 moveAround(mainView);
                                 break;
                         }
@@ -440,35 +432,35 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 //        b.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-                TextView tv = ((TextViewInterface) getActivity()).getTextView();
+        TextView tv = ((TextViewInterface) getActivity()).getTextView();
         if (getActivity().getClass().getCanonicalName().equals(MainActivity.class)) {
             return;
         }
-                tv.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
+        tv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
 
-                            case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_DOWN:
 
-                                dX = v.getX() - event.getRawX();
-                                dY = v.getY() - event.getRawY();
-                                break;
+                        dX = v.getX() - event.getRawX();
+                        dY = v.getY() - event.getRawY();
+                        break;
 
-                            case MotionEvent.ACTION_MOVE:
+                    case MotionEvent.ACTION_MOVE:
 
-                                v.animate()
-                                        .x(event.getRawX() + dX)
-                                        .y(event.getRawY() + dY)
-                                        .setDuration(0)
-                                        .start();
-                                break;
-                            default:
-                                return false;
-                        }
-                        return true;
-                    }
-                });
+                        v.animate()
+                                .x(event.getRawX() + dX)
+                                .y(event.getRawY() + dY)
+                                .setDuration(0)
+                                .start();
+                        break;
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
 //            }
 //        });
     }
