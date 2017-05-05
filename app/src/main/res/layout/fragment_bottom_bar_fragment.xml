@@ -23,6 +23,7 @@
                 android:layout_height="fill_parent"
                 android:orientation="horizontal">
 
+
                 <Button
                     android:id="@+id/btn_move_around"
                     android:layout_width="80dip"
@@ -41,7 +42,8 @@
                     android:gravity="center"
                     android:background="@drawable/bottom_bar_menu"
                     android:layout_margin="2dp"
-                    android:text="מסגור טקסט" />
+                    android:text="מסגור טקטס" />
+
 
                 <Button
                     android:id="@+id/btn_change_font"
