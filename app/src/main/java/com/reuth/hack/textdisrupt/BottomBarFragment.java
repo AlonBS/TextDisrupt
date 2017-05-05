@@ -215,7 +215,7 @@ public class BottomBarFragment extends Fragment {
     }
 
     public void unVowelsText(View mainView) {
-        Button b = (Button) mainView.findViewById(R.id.btn_unvowels);
+        final Button b = (Button) mainView.findViewById(R.id.btn_unvowels);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,6 +223,8 @@ public class BottomBarFragment extends Fragment {
                 VowelsToggle vowelsToggle = new VowelsToggle(tv.getText().toString());
                 String converted = vowelsToggle.removeVowels();
                 tv.setText(converted);
+
+                b.setSelected(!b.isSelected());
             }
         });
     }
@@ -279,71 +281,11 @@ public class BottomBarFragment extends Fragment {
     }
     public static void unVowelsText(final Context context, View mainView, final String str) {
         final Button b = (Button) mainView.findViewById(R.id.btn_unvowels);
-//        b.setOnTouchListener(new View.OnTouchListener() {
-//
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//
-//                // show interest in events resulting from ACTION_DOWN
-//                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-////                    return true;
-//                    b.setBackgroundColor(Color.BLUE);
-//                    b.setPressed(true);
-//                    return true;
-//                }
-//
-//                // don't handle event unless its ACTION_UP so "doSomething()" only runs once.
-//                else if (event.getAction() != MotionEvent.ACTION_UP) {
-////                    return false;
-//                    b.setBackgroundColor(Color.GRAY);
-//                    b.setPressed(false);
-//                    return false;
-//                } else {
-//                    return false;
-//                }
-//
-//
-////                doSomething();
-////                Toast.makeText(context, "bla bla", Toast.LENGTH_LONG).show();
-////                b.setPressed(true);
-////                return false;
-//            }
-//        });
-
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    if (!b.isSelected()) {
-//                        b.setBackgroundColor(Color.BLUE);
-//                    } else {
-//                        b.setBackgroundColor(Color.GRAY);
-//                    }
-
                     b.setSelected(!b.isSelected());
-//                    new Handler().post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            b.setPressed(!b.isPressed());
-//                        }
-//                    });
                 }
             });
-
-
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // TODO - Shachar
-//                Toast.makeText(context, str, Toast.LENGTH_LONG).show();
-//
-//                v.setPressed(true);
-//                b.setPressed(true);
-//                b.setSelected(true);
-//
-//                VowelsToggle vowelsToggle = new VowelsToggle(str);
-//                String converted = vowelsToggle.removeVowels();
-//
-//            }
-//        });
     }
 }

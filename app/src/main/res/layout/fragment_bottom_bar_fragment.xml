@@ -137,6 +137,7 @@
                     android:layout_height="80dip"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:background="@drawable/bottom_bar_menu"
                     android:text="צייר" />
 
             </LinearLayout>
