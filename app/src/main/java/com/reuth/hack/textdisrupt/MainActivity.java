@@ -93,6 +93,11 @@ public class MainActivity extends AppCompatActivity
         return span_str;
     }
 
+    @Override
+    public int getWordIndex() {
+        return -1;
+    }
+
     public void buildWordsArray(String text_str) {
 
         BreakIterator bi = BreakIterator.getWordInstance(Locale.US);

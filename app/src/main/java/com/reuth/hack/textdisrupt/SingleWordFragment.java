@@ -2,6 +2,8 @@ package com.reuth.hack.textdisrupt;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ public class SingleWordFragment extends Fragment {
 
     private TextView mTextView;
     private String presentedWord = null;
+    private SpannableString mSpanStr;
 
     public static SingleWordFragment getInstance() {
         return new SingleWordFragment();
@@ -32,6 +35,11 @@ public class SingleWordFragment extends Fragment {
 
         mTextView = (TextView) rootView.findViewById(R.id.scrollViewTextView);
         mTextView.setText(bundle.getString(WORD_TO_DISPLAY));
+
+        mSpanStr = new SpannableString(mTextView.getText().toString());
+        mTextView.setText(mSpanStr);
+        mTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
         presentedWord = bundle.getString(WORD_TO_DISPLAY);
 
         return rootView;
@@ -39,5 +47,9 @@ public class SingleWordFragment extends Fragment {
 
     public TextView getTextView(){
         return mTextView;
+    }
+
+    public SpannableString getSpanStr() {
+        return mSpanStr;
     }
 }

@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -36,6 +37,14 @@ public class SingleWordActivity extends AppCompatActivity implements TextViewInt
 
         Bundle bundle = getIntent().getBundleExtra("TOUCHED_WORD_BUNDLE");
         words_array = bundle.getParcelableArrayList("TOUCHED_WORD_ARRAY");
+        ArrayList<Word> cloned_words_array = new ArrayList<>();
+
+        for (Word word: words_array) {
+            String value = word.value;
+            cloned_words_array.add(new Word(0, value.length(), value));
+        }
+
+        words_array = cloned_words_array;
 
 //        Toast.makeText(this, String.valueOf(wordIndex), Toast.LENGTH_LONG).show();
 
@@ -116,7 +125,18 @@ public class SingleWordActivity extends AppCompatActivity implements TextViewInt
     }
 
     public SpannableString getSpanStr() {
-        return new SpannableString("a");
+        int currentPosition = mPager.getCurrentItem();
+
+        if (!map.containsKey(currentPosition)) {
+            map.put(currentPosition, SingleWordFragment.getInstance());
+        }
+
+        return map.get(currentPosition).getSpanStr();
+    }
+
+    @Override
+    public int getWordIndex() {
+        return wordIndex;
     }
 
 }

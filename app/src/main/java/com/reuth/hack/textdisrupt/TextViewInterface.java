@@ -16,4 +16,6 @@ public interface TextViewInterface {
     ArrayList<Word> getWordsArray();
 
     SpannableString getSpanStr();
+
+    int getWordIndex();
 }
