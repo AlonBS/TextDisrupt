@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.Color;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -18,10 +16,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-public class BottomBarFragment extends Fragment {
+public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitListener {
+
+    //TTS object
+    private TextToSpeech myTTS;
+    //status check code
+    private int MY_DATA_CHECK_CODE = 0;
 
     public BottomBarFragment() {
     }
@@ -32,6 +37,7 @@ public class BottomBarFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bottom_bar_fragment, container, false);
 
+        createTTS();
 
         enlargeText(view);
         reduceText(view);
@@ -42,15 +48,54 @@ public class BottomBarFragment extends Fragment {
 //        emphMid(view);
 //        emphSuf(view);
 
-//        textToSpeech(view);
-
         unVowelsText(view);
         paintText(getContext(), view);
         changeFont(view);
+        textToSpeech(view);
         addBordersToText(view);
 
 
         return view;
+    }
+
+
+    //setup TTS
+    @Override
+    public void onInit(int initStatus) {
+
+        //check for successful instantiation
+        if (initStatus == TextToSpeech.SUCCESS) {
+            if (myTTS.isLanguageAvailable(Locale.ENGLISH) == TextToSpeech.LANG_AVAILABLE)
+                myTTS.setLanguage(Locale.ENGLISH);
+        } else if (initStatus == TextToSpeech.ERROR) {
+            Toast.makeText(getActivity(), "Sorry! Text To Speech failed...",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    //act on result of TTS data check
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == MY_DATA_CHECK_CODE) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                //the user has the necessary data - create the TTS
+                myTTS = new TextToSpeech(getActivity(), this);
+                myTTS.setLanguage(Locale.ENGLISH);
+            } else {
+                //no data - install it now
+                Intent installTTSIntent = new Intent();
+                installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installTTSIntent);
+            }
+        }
+    }
+
+    private void createTTS() {
+        //check for TTS data
+        Intent checkTTSIntent = new Intent();
+        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
     }
 
     public void enlargeText(View mainView) {
@@ -187,18 +232,17 @@ public class BottomBarFragment extends Fragment {
 //            }
 //        });
 //    }
-//
-//    public void textToSpeech(View mainView) {
-//        Button b = (Button) mainView.findViewById(R.id.btn_change_line_spacing_bigger);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TextView tv = ((TextViewInterface) getActivity()).getTextView();
-//                float line_spacing = tv.getLineSpacingExtra();
-//                tv.setLineSpacing (line_spacing + 10, 1);
-//            }
-//        });
-//    }
+
+    public void textToSpeech(View mainView) {
+        Button b = (Button) mainView.findViewById(R.id.btn_text_to_speach);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tv = ((TextViewInterface) getActivity()).getTextView();
+                myTTS.speak(tv.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "my_speak");
+            }
+        });
+    }
 
 
     public void paintText(final Context context, View mainView) {
@@ -278,14 +322,5 @@ public class BottomBarFragment extends Fragment {
                 tv.setBackground(getActivity().getDrawable(R.drawable.back));
             }
         });
-    }
-    public static void unVowelsText(final Context context, View mainView, final String str) {
-        final Button b = (Button) mainView.findViewById(R.id.btn_unvowels);
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    b.setSelected(!b.isSelected());
-                }
-            });
     }
 }
