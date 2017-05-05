@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         init_app();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -82,6 +82,14 @@ public class MainActivity extends AppCompatActivity
 
     public TextView getTextView() {
         return text_view;
+    }
+
+    public ArrayList<Word> getWordsArray() {
+        return words_array;
+    }
+
+    public SpannableString getSpanStr() {
+        return span_str;
     }
 
     public void buildWordsArray(String text_str) {

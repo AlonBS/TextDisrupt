@@ -5,5 +5,6 @@
     android:name="com.reuth.hack.textdisrupt.BottomBarFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:layout="@layout/fragment_bottom_bar_fragment" />

@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -28,8 +29,8 @@ public class SingleWordActivity extends AppCompatActivity implements TextViewInt
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_single_word);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         wordIndex = getIntent().getIntExtra("TOUCHED_WORD_INDEX", -1);
 
@@ -108,6 +109,14 @@ public class SingleWordActivity extends AppCompatActivity implements TextViewInt
         }
 
         return map.get(currentPosition).getTextView();
+    }
+
+    public ArrayList<Word> getWordsArray() {
+        return words_array;
+    }
+
+    public SpannableString getSpanStr() {
+        return new SpannableString("a");
     }
 
 }
