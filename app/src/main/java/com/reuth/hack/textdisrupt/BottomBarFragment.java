@@ -3,11 +3,15 @@ package com.reuth.hack.textdisrupt;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,6 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -153,48 +158,92 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
             @Override
             public void onClick(View v) {
                 final TextView tv = ((TextViewInterface) getActivity()).getTextView();
+                final SpannableString span_str = ((TextViewInterface) getActivity()).getSpanStr();
+                final ArrayList<Word> words_array = (
+                        (TextViewInterface) getActivity()).getWordsArray();
                 AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
                 b.setTitle("Select Empasis:");
                 String[] types = {"Prefixes", "Middle Letters", "Suffixes"};
                 b.setItems(types, new DialogInterface.OnClickListener() {
 
+                    public void eraseCurrentEmph() {
+                        SpannableString ss = (SpannableString) tv.getText();
+                        ForegroundColorSpan[] spans = ss.getSpans(0, tv.getText().length(),
+                                ForegroundColorSpan.class);
+                        int spans_length = spans.length;
+                        if (spans_length > 0) {
+                            for (ForegroundColorSpan span: spans) {
+                                span_str.removeSpan(span);
+                            }
+                        }
+                    }
+
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-                        // call method to clear changes
-
+                        int text_color = Color.RED;
+                        eraseCurrentEmph();
                         dialog.dismiss();
                         switch (which) {
                             case 0:
 
                                 // wanted to change back - we do nothing
                                 if (last == 0) {
+                                    last = -1;
                                     break;
                                 }
 
                                 // call method to empasis prefixes
-                                last = 0;
+                                for (Word w : words_array) {
+                                    int beginIndex = w.getBegin();
+                                    int endIndex = Math.min(beginIndex + 2, w.getEnd());
+                                    span_str.setSpan(new ForegroundColorSpan(text_color),
+                                            beginIndex, endIndex, 0);
 
+                                }
+                                last = 0;
                                 break;
                             case 1:
 
                                 // wanted to change back - we do nothing
                                 if (last == 1) {
+                                    last = -1;
                                     break;
                                 }
 
                                 // call method to empasis middle
+                                for (Word w : words_array) {
+                                    int beginIndex = w.getBegin() + 2;
+                                    int endIndex = w.getEnd() - 2;
+                                    if (beginIndex < endIndex) {
+                                        span_str.setSpan(new ForegroundColorSpan(text_color),
+                                                beginIndex, endIndex, 0);
+                                    }
+                                }
                                 last = 1;
+                                break;
+
                             case 2:
 
                                 // wanted to change back - we do nothing
                                 if (last == 2) {
+                                    last = -1;
                                     break;
                                 }
 
                                 // call method to empasis end
-                                last = 0;
+                                for (Word w : words_array) {
+                                    int endIndex = w.getEnd();
+                                    int beginIndex = Math.max(w.getBegin(), endIndex - 2);
+                                    span_str.setSpan(new ForegroundColorSpan(text_color),
+                                            beginIndex, endIndex, 0);
+                                }
+
+
+                                last = 2;
+                                break;
                         }
+                        tv.setText(span_str);
+                        tv.setMovementMethod(LinkMovementMethod.getInstance());
                     }
                 });
 

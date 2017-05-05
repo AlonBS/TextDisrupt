@@ -1,6 +1,9 @@
 package com.reuth.hack.textdisrupt;
 
+import android.text.SpannableString;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by shacharla on 5/5/2017.
@@ -9,4 +12,8 @@ import android.widget.TextView;
 public interface TextViewInterface {
 
     TextView getTextView();
+
+    ArrayList<Word> getWordsArray();
+
+    SpannableString getSpanStr();
 }
