@@ -24,6 +24,14 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_add_borders"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="מסגור טקטס" />
+
+                <Button
                     android:id="@+id/btn_change_font"
                     android:layout_width="80dip"
                     android:layout_height="80dip"

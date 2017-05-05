@@ -44,6 +44,7 @@ public class BottomBarFragment extends Fragment {
         unVowelsText(view);
         paintText(getContext(), view);
         changeFont(view);
+        addBordersToText(view);
 
 
         return view;
@@ -96,17 +97,46 @@ public class BottomBarFragment extends Fragment {
             }
         });
     }
-//    public void emphPre(View mainView) {
-//        Button b = (Button) mainView.findViewById(R.id.btn_change_line_spacing_bigger);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TextView tv = ((TextViewInterface) getActivity()).getTextView();
-//                float line_spacing = tv.getLineSpacingExtra();
-//                tv.setLineSpacing (line_spacing + 10, 1);
-//            }
-//        });
-//    }
+    public void emphText(View mainView) {
+
+        Button b = (Button) mainView.findViewById(R.id.btn_emphasize_middle);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final TextView tv = ((TextViewInterface) getActivity()).getTextView();
+                AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
+                b.setTitle("Select Empasis:");
+                String[] types = {"Prefixes", "Middle Letters", "Suffixes"};
+                b.setItems(types, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        switch (which) {
+                            case 0:
+
+                                tv.setTypeface(Typeface.createFromAsset(
+                                        getActivity().getAssets(), "fonts/David.ttf"));
+                                break;
+                            case 1:
+                                tv.setTypeface(Typeface.createFromAsset(
+                                        getActivity().getAssets(), "fonts/TNR.ttf"));
+                                break;
+                            case 2:
+                                tv.setTypeface(Typeface.createFromAsset(
+                                        getActivity().getAssets(), "fonts/Calibri.ttf"));
+                                break;
+                        }
+                    }
+                });
+
+                b.show();
+            }
+        });
+
+
+    }
 
 
 
@@ -180,27 +210,27 @@ public class BottomBarFragment extends Fragment {
             public void onClick(View v) {
                 final TextView tv = ((TextViewInterface) getActivity()).getTextView();
                 AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
-                b.setTitle("Example");
-                String[] types = {"By Zip", "By Category", "12"};
+                b.setTitle("Select font:");
+                String[] types = {"David", "Times New Roman", "Calibri"};
                 b.setItems(types, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                         dialog.dismiss();
-                        switch(which){
+                        switch (which) {
                             case 0:
 
                                 tv.setTypeface(Typeface.createFromAsset(
-                                        getActivity().getAssets(),"fonts/David.ttf"));
+                                        getActivity().getAssets(), "fonts/David.ttf"));
                                 break;
                             case 1:
                                 tv.setTypeface(Typeface.createFromAsset(
-                                        getActivity().getAssets(),"fonts/TNR.ttf"));
+                                        getActivity().getAssets(), "fonts/TNR.ttf"));
                                 break;
                             case 2:
                                 tv.setTypeface(Typeface.createFromAsset(
-                                        getActivity().getAssets(),"fonts/Calibri.ttf"));
+                                        getActivity().getAssets(), "fonts/Calibri.ttf"));
                                 break;
                         }
                     }
@@ -208,7 +238,17 @@ public class BottomBarFragment extends Fragment {
                 });
 
                 b.show();
+            }
+        });
+    }
 
+
+    public void addBordersToText(View mainView) {
+        Button b = (Button) mainView.findViewById(R.id.btn_add_borders);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final TextView tv = ((TextViewInterface) getActivity()).getTextView();
                 tv.setBackground(getActivity().getDrawable(R.drawable.back));
             }
         });
