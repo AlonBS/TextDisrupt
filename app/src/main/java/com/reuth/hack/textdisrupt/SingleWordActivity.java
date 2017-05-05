@@ -28,8 +28,8 @@ public class SingleWordActivity extends AppCompatActivity implements TextViewInt
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_single_word);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         wordIndex = getIntent().getIntExtra("TOUCHED_WORD_INDEX", -1);
 

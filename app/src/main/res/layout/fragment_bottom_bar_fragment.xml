@@ -30,7 +30,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:background="@drawable/bottom_bar_menu"
-                    android:text="מסגור טקטס" />
+                    android:text="מסגור טקסט" />
 
                 <Button
                     android:id="@+id/btn_change_font"
