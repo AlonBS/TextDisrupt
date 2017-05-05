@@ -336,7 +336,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 //        unVowelsText(view);
 //        moveAround(view);
 
-        Button b = (Button) mainView.findViewById(R.id.btn_extra_options);
+        ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_extra_options);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
