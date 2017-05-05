@@ -5,16 +5,16 @@
     <!--Drop Down Options-->
     <string-array name="Articles">
         <item>Choose an article from the list</item>
-        <item>Fuck</item>
-        <item>You</item>
-        <item>Dolphin</item>
+        <item>Predefined Text #1</item>
+        <item>Predefined Text #2</item>
+        <item>Predefined Text #3</item>
     </string-array>
 
     <string-array name="ArticlesData">
         <item></item>
-        <item>The story of fuck you dolphin begins on the day shachar painted thnigs in red. </item>
-        <item>The story still continues</item>
-        <item>YEAHH</item>
+        <item>This is an example text</item>
+        <item>This is yet another example</item>
+        <item>שָׁלוֹם</item>
     </string-array>
 
 
@@ -25,7 +25,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_new_signle_word">NewSignleWordActivity</string>
+    <string name="title_activity_new_signle_word">Single Word Activity</string>
 
 
 

@@ -4,16 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.text.Layout;
 import android.view.MotionEvent;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,7 +26,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TextToSpeech.OnInitListener,
+        TextViewInterface {
 
     //TTS object
     private TextToSpeech myTTS;
@@ -54,32 +50,20 @@ public class MainActivity extends AppCompatActivity
 
         String displayedText = getIntent().getStringExtra("IMPORTED_TEXT");
 
-        ((TextView)findViewById(R.id.main_text_view)).setText(displayedText);
+        ((TextView) findViewById(R.id.main_text_view)).setText(displayedText);
 
         init_app();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
 
 
     }
@@ -102,6 +86,10 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+    public TextView getTextView() {
+        return text_view;
+    }
 
     public void buildWordsArray(String text_str) {
 
@@ -132,15 +120,14 @@ public class MainActivity extends AppCompatActivity
 
         //check for successful instantiation
         if (initStatus == TextToSpeech.SUCCESS) {
-            if(myTTS.isLanguageAvailable(Locale.ENGLISH)==TextToSpeech.LANG_AVAILABLE)
+            if (myTTS.isLanguageAvailable(Locale.ENGLISH) == TextToSpeech.LANG_AVAILABLE)
                 myTTS.setLanguage(Locale.ENGLISH);
-        }
-        else if (initStatus == TextToSpeech.ERROR) {
+        } else if (initStatus == TextToSpeech.ERROR) {
             Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void createTTS(){
+    private void createTTS() {
         //check for TTS data
         Intent checkTTSIntent = new Intent();
         checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
@@ -168,12 +155,12 @@ public class MainActivity extends AppCompatActivity
     private void setTextViewOnLongTouchListener() {
 
         TextView tv = (TextView) findViewById(R.id.main_text_view);
-        tv.setOnTouchListener( new View.OnTouchListener() {
+        tv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
 
-                Layout layout = ((TextView)v).getLayout();
+                Layout layout = ((TextView) v).getLayout();
                 int x = (int) event.getX();
                 int y = (int) event.getY();
 
@@ -183,16 +170,6 @@ public class MainActivity extends AppCompatActivity
                     int offset = layout.getOffsetForHorizontal(line, x);
 
                     touchedWordIndex = getWordIndex(offset);
-
-                    Snackbar.make(v, "touchedWordIndex: " + touchedWordIndex, Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                    //Intenet - start resisi's activity with
-                    //Bundle (INDEX):
-
-
-
-
                 }
 
                 return false;
@@ -223,37 +200,17 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-
     }
 
     private int getWordIndex(int offset) {
 
-
-//        Comparator<Word> containedComp = new Comparator<Word>() {
-//            public int compare(Word w1, Word w2) {
-//
-//                if ((w2.getBegin() >= w1.getBegin()) && (w2.getEnd() <= w1.getEnd())) {
-//                    return 0;
-//                }
-//
-//                if (w1.getBegin() < w2.getBegin()) {
-//                    return 1;
-//                }
-//
-//                return -1;
-//            }
-//        };
-
-        for (int i=0; i< words_array.size(); i++) {
+        for (int i = 0; i < words_array.size(); i++) {
             Word word = words_array.get(i);
 
             if (word != null && word.getBegin() <= offset && offset <= word.getEnd()) {
                 return i;
             }
         }
-
-//        int index = Collections.binarySearch(words_array, new Word(offset, offset, null), containedComp);
-
 
         return -1;
     }
@@ -296,27 +253,23 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_change_font) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_change_size_smaller) {
-            float text_size = text_view.getTextSize();
-            text_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size - 10);
+
         } else if (id == R.id.nav_change_size_bigger) {
-            float text_size = text_view.getTextSize();
-            text_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, text_size + 10);
+
         } else if (id == R.id.nav_change_line_spacing_smaller) {
-            float line_spacing = text_view.getLineSpacingExtra();
-            text_view.setLineSpacing (line_spacing - 10, 1);
+
         } else if (id == R.id.nav_change_line_spacing_bigger) {
-            float line_spacing = text_view.getLineSpacingExtra();
-            text_view.setLineSpacing (line_spacing + 10, 1);
+
         } else if (id == R.id.nav_emphasize_prefix) {
             boolean emphBegin = shouldEmphBegin;
             for (Word w : this.words_array) {
                 int beginIndex = w.getBegin();
                 int endIndex = Math.min(beginIndex + 2, w.getEnd());
                 int text_color = Color.RED;
-                SpannableString ss=(SpannableString)text_view.getText();
-                ForegroundColorSpan[] spans=ss.getSpans(beginIndex, endIndex,
+                SpannableString ss = (SpannableString) text_view.getText();
+                ForegroundColorSpan[] spans = ss.getSpans(beginIndex, endIndex,
                         ForegroundColorSpan.class);
                 int spans_length = spans.length;
                 if ((spans_length > 0) && emphBegin) {
@@ -335,8 +288,8 @@ public class MainActivity extends AppCompatActivity
                 int endIndex = w.getEnd() - 2;
                 if (beginIndex < endIndex) {
                     int text_color = Color.RED;
-                    SpannableString ss=(SpannableString)text_view.getText();
-                    ForegroundColorSpan[] spans=ss.getSpans(beginIndex, endIndex,
+                    SpannableString ss = (SpannableString) text_view.getText();
+                    ForegroundColorSpan[] spans = ss.getSpans(beginIndex, endIndex,
                             ForegroundColorSpan.class);
                     int spans_length = spans.length;
                     if (spans_length > 0) {
@@ -353,8 +306,8 @@ public class MainActivity extends AppCompatActivity
                 int endIndex = w.getEnd();
                 int beginIndex = Math.max(w.getBegin(), endIndex - 2);
                 int text_color = Color.RED;
-                SpannableString ss=(SpannableString)text_view.getText();
-                ForegroundColorSpan[] spans=ss.getSpans(beginIndex, endIndex,
+                SpannableString ss = (SpannableString) text_view.getText();
+                ForegroundColorSpan[] spans = ss.getSpans(beginIndex, endIndex,
                         ForegroundColorSpan.class);
                 int spans_length = spans.length;
                 if ((spans_length > 0) && emphEnd) {

@@ -8,24 +8,25 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
+import android.view.Window;
+import android.widget.TextView;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class SingleWordActivity extends AppCompatActivity {
+public class SingleWordActivity extends AppCompatActivity implements TextViewInterface{
 
     public static final String WORD_TO_DISPLAY = "WORD_TO_DISPLAY";
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private int wordIndex = -1;
     private ArrayList<Word> words_array;
-
-
+    HashMap<Integer, SingleWordFragment> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_single_word);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -35,7 +36,7 @@ public class SingleWordActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getBundleExtra("TOUCHED_WORD_BUNDLE");
         words_array = bundle.getParcelableArrayList("TOUCHED_WORD_ARRAY");
 
-        Toast.makeText(this, String.valueOf(wordIndex), Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, String.valueOf(wordIndex), Toast.LENGTH_LONG).show();
 
 
 
@@ -45,18 +46,21 @@ public class SingleWordActivity extends AppCompatActivity {
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(wordIndex);
         mPager.setPageTransformer(true, new DepthPageTransformer());
+
     }
 
     @Override
     public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
+        super.onBackPressed();
+
+//        if (mPager.getCurrentItem() == 0) {
+//            // If the user is currently looking at the first step, allow the system to handle the
+//            // Back button. This calls finish() on this activity and pops the back stack.
+//            super.onBackPressed();
+//        } else {
+//            // Otherwise, select the previous step.
+//            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+//        }
     }
 
     /**
@@ -73,7 +77,12 @@ public class SingleWordActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-            SingleWordFragment fragment = SingleWordFragment.getInstance();
+            if (!map.containsKey(position)) {
+                map.put(position, SingleWordFragment.getInstance());
+            }
+
+            SingleWordFragment fragment = map.get(position);
+
 
             Bundle bundle = new Bundle();
             bundle.putString(WORD_TO_DISPLAY, words_array.get(position).getValue());
@@ -89,6 +98,16 @@ public class SingleWordActivity extends AppCompatActivity {
 
             return words_array.size();
         }
+    }
+
+    public TextView getTextView() {
+        int currentPosition = mPager.getCurrentItem();
+
+        if (!map.containsKey(currentPosition)) {
+            map.put(currentPosition, SingleWordFragment.getInstance());
+        }
+
+        return map.get(currentPosition).getTextView();
     }
 
 }
