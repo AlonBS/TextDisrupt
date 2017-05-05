@@ -101,6 +101,9 @@ public class BottomBarFragment extends Fragment {
 
         Button b = (Button) mainView.findViewById(R.id.btn_emphasize_middle);
         b.setOnClickListener(new View.OnClickListener() {
+
+            private int last = -1;
+
             @Override
             public void onClick(View v) {
                 final TextView tv = ((TextViewInterface) getActivity()).getTextView();
@@ -112,21 +115,39 @@ public class BottomBarFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        // call method to clear changes
+
                         dialog.dismiss();
                         switch (which) {
                             case 0:
 
-                                tv.setTypeface(Typeface.createFromAsset(
-                                        getActivity().getAssets(), "fonts/David.ttf"));
+                                // wanted to change back - we do nothing
+                                if (last == 0) {
+                                    break;
+                                }
+
+                                // call method to empasis prefixes
+                                last = 0;
+
                                 break;
                             case 1:
-                                tv.setTypeface(Typeface.createFromAsset(
-                                        getActivity().getAssets(), "fonts/TNR.ttf"));
-                                break;
+
+                                // wanted to change back - we do nothing
+                                if (last == 1) {
+                                    break;
+                                }
+
+                                // call method to empasis middle
+                                last = 1;
                             case 2:
-                                tv.setTypeface(Typeface.createFromAsset(
-                                        getActivity().getAssets(), "fonts/Calibri.ttf"));
-                                break;
+
+                                // wanted to change back - we do nothing
+                                if (last == 2) {
+                                    break;
+                                }
+
+                                // call method to empasis end
+                                last = 0;
                         }
                     }
                 });
