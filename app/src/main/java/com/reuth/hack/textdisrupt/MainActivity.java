@@ -84,6 +84,14 @@ public class MainActivity extends AppCompatActivity
         return text_view;
     }
 
+    public ArrayList<Word> getWordsArray() {
+        return words_array;
+    }
+
+    public SpannableString getSpanStr() {
+        return span_str;
+    }
+
     public void buildWordsArray(String text_str) {
 
         BreakIterator bi = BreakIterator.getWordInstance(Locale.US);
