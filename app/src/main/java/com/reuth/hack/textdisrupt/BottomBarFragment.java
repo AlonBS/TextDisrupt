@@ -396,39 +396,40 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 
     }
 
-
-
     public void moveAround(View mainView) {
 //        Button b = (Button) mainView.findViewById(R.id.btn_move_around);
 //        b.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                TextView tv = ((TextViewInterface) getActivity()).getTextView();
-//                tv.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View v, MotionEvent event) {
-//                        switch (event.getAction()) {
-//
-//                            case MotionEvent.ACTION_DOWN:
-//
-//                                dX = v.getX() - event.getRawX();
-//                                dY = v.getY() - event.getRawY();
-//                                break;
-//
-//                            case MotionEvent.ACTION_MOVE:
-//
-//                                v.animate()
-//                                        .x(event.getRawX() + dX)
-//                                        .y(event.getRawY() + dY)
-//                                        .setDuration(0)
-//                                        .start();
-//                                break;
-//                            default:
-//                                return false;
-//                        }
-//                        return true;
-//                    }
-//                });
+                TextView tv = ((TextViewInterface) getActivity()).getTextView();
+        if (getActivity().getClass().getCanonicalName().equals(MainActivity.class)) {
+            return;
+        }
+                tv.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+
+                            case MotionEvent.ACTION_DOWN:
+
+                                dX = v.getX() - event.getRawX();
+                                dY = v.getY() - event.getRawY();
+                                break;
+
+                            case MotionEvent.ACTION_MOVE:
+
+                                v.animate()
+                                        .x(event.getRawX() + dX)
+                                        .y(event.getRawY() + dY)
+                                        .setDuration(0)
+                                        .start();
+                                break;
+                            default:
+                                return false;
+                        }
+                        return true;
+                    }
+                });
 //            }
 //        });
     }
