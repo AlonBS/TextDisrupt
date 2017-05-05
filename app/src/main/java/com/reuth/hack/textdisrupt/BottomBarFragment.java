@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -261,12 +262,17 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
     public void unVowelsText(View mainView) {
         final Button b = (Button) mainView.findViewById(R.id.btn_unvowels);
         b.setOnClickListener(new View.OnClickListener() {
+            private VowelsToggle vowelsToggle = null;
             @Override
             public void onClick(View v) {
                 TextView tv = ((TextViewInterface) getActivity()).getTextView();
-                VowelsToggle vowelsToggle = new VowelsToggle(tv.getText().toString());
-                String converted = vowelsToggle.removeVowels();
-                tv.setText(converted);
+
+                if (!b.isSelected()) {
+                    vowelsToggle = new VowelsToggle(tv.getText().toString());
+                    tv.setText(vowelsToggle.removeVowels());
+                } else {
+                    tv.setText(vowelsToggle.getOriginalString());
+                }
 
                 b.setSelected(!b.isSelected());
             }
@@ -314,13 +320,23 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 
 
     public void addBordersToText(View mainView) {
-        Button b = (Button) mainView.findViewById(R.id.btn_add_borders);
+        final Button b = (Button) mainView.findViewById(R.id.btn_add_borders);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final TextView tv = ((TextViewInterface) getActivity()).getTextView();
-                tv.setBackground(getActivity().getDrawable(R.drawable.back));
+                if (!b.isSelected()) {
+                    tv.setBackground(getActivity().getDrawable(R.drawable.back));
+                } else {
+                    tv.setBackground(null);
+                }
+
+                b.setSelected(!b.isSelected());
             }
         });
+
+
+
     }
 }
