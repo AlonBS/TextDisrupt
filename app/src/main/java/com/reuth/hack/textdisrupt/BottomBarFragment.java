@@ -43,7 +43,7 @@ public class BottomBarFragment extends Fragment {
 
         unVowelsText(view);
         paintText(getContext(), view);
-
+        changeFont(view);
 
 
         return view;
@@ -173,41 +173,44 @@ public class BottomBarFragment extends Fragment {
         });
     }
 
-//    public void changeFont(View mainView) {
-//        Button b = (Button) mainView.findViewById(R.id.btn_);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TextView tv = ((TextViewInterface) getActivity()).getTextView();
-//                AlertDialog.Builder b = new AlertDialog.Builder(this);
-//                b.setTitle("Example");
-//                String[] types = {"By Zip", "By Category", "12"};
-//                b.setItems(types, new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                        dialog.dismiss();
-//                        switch(which){
-//                            case 0:
-//
-//                                tv.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/David.ttf"));
-//                                break;
-//                            case 1:
-//                                tv.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/TNR.ttf"));
-//                                break;
-//                            case 2:
-//                                tv.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Calibri.ttf"));
-//                                break;
-//                        }
-//                    }
-//
-//                });
-//
-//                b.show();
-//
-//                tv.setBackground(getDrawable(R.drawable.back));
-//            }
-//        });
-//    }
+    public void changeFont(View mainView) {
+        Button b = (Button) mainView.findViewById(R.id.btn_change_font);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final TextView tv = ((TextViewInterface) getActivity()).getTextView();
+                AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
+                b.setTitle("Example");
+                String[] types = {"By Zip", "By Category", "12"};
+                b.setItems(types, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        switch(which){
+                            case 0:
+
+                                tv.setTypeface(Typeface.createFromAsset(
+                                        getActivity().getAssets(),"fonts/David.ttf"));
+                                break;
+                            case 1:
+                                tv.setTypeface(Typeface.createFromAsset(
+                                        getActivity().getAssets(),"fonts/TNR.ttf"));
+                                break;
+                            case 2:
+                                tv.setTypeface(Typeface.createFromAsset(
+                                        getActivity().getAssets(),"fonts/Calibri.ttf"));
+                                break;
+                        }
+                    }
+
+                });
+
+                b.show();
+
+                tv.setBackground(getActivity().getDrawable(R.drawable.back));
+            }
+        });
+    }
 }
