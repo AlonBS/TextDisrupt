@@ -36,6 +36,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
     private int MY_DATA_CHECK_CODE = 0;
     float dX, dY;
     private int lastEmphChoice = -1;
+    private VowelsToggle vowelsToggle = null;
 
     public BottomBarFragment() {
     }
@@ -331,12 +332,12 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 //        unVowelsText(view);
 //        moveAround(view);
 
-        ImageButton b = (ImageButton) mainView.findViewById(R.id.btn_extra_options);
-        b.setOnClickListener(new View.OnClickListener() {
+        final ImageButton ib = (ImageButton) mainView.findViewById(R.id.btn_extra_options);
+        ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final TextView tv = ((TextViewInterface) getActivity()).getTextView();
-                AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
+                final AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
                 b.setTitle("Select option:");
                 String[] types = {"שינוי פונט", "תחימת טקסט",
                         "הוספה / הסרה של ניקוד", "תזוזה חופשית"};
@@ -353,10 +354,10 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
                                 changeFont(mainView);
                                 break;
                             case 1:
-                                addBordersToText(mainView);
+                                addBordersToText(mainView, ib);
                                 break;
                             case 2:
-                                unVowelsText(mainView);
+                                unVowelsText(mainView, ib);
                                 break;
                             case 3:
                                 moveAround(mainView);
@@ -408,23 +409,34 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
     }
 
 
-    public void addBordersToText(View mainView) {
+    public void addBordersToText(View mainView, ImageButton ib) {
 
         final TextView tv = ((TextViewInterface) getActivity()).getTextView();
-        tv.setBackground(getActivity().getDrawable(R.drawable.back));
+
+        if (!ib.isSelected()) {
+            tv.setBackground(getActivity().getDrawable(R.drawable.back));
+        } else {
+            tv.setBackground(null);
+        }
+
+        ib.setSelected(!ib.isSelected());
 
     }
 
-    public void unVowelsText(View mainView) {
+    public void unVowelsText(View mainView, ImageButton ib) {
 
         TextView tv = ((TextViewInterface) getActivity()).getTextView();
-        VowelsToggle vowelsToggle = new VowelsToggle(tv.getText().toString());
-        String converted = vowelsToggle.removeVowels();
-        tv.setText(converted);
 
-        //b.setSelected(!b.isSelected());
+        if (!ib.isSelected()) {
+            vowelsToggle = new VowelsToggle(tv.getText().toString());
+            tv.setText(vowelsToggle.removeVowels());
+        } else {
+            tv.setText(vowelsToggle.getOriginalString());
+        }
 
-        emphCurrentText(null, lastEmphChoice, false);
+        ib.setSelected(!ib.isSelected());
+
+//        emphCurrentText(null, lastEmphChoice, false);
     }
 
     public void moveAround(View mainView) {
