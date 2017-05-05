@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -72,8 +73,8 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
             if (myTTS.isLanguageAvailable(Locale.ENGLISH) == TextToSpeech.LANG_AVAILABLE)
                 myTTS.setLanguage(Locale.ENGLISH);
         } else if (initStatus == TextToSpeech.ERROR) {
-            Toast.makeText(getActivity(), "Sorry! Text To Speech failed...",
-                    Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Sorry! Text To Speech failed...",
+                        Toast.LENGTH_LONG).show();
         }
     }
 
@@ -317,12 +318,13 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 //    }
 
     public void textToSpeech(View mainView) {
-        Button b = (Button) mainView.findViewById(R.id.btn_text_to_speach);
+        final Button b = (Button) mainView.findViewById(R.id.btn_text_to_speach);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView tv = ((TextViewInterface) getActivity()).getTextView();
                 myTTS.speak(tv.getText().toString(), TextToSpeech.QUEUE_FLUSH, null, "my_speak");
+
             }
         });
     }
