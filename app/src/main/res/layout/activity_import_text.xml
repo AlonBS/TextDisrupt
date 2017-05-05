@@ -16,7 +16,10 @@
         android:layout_marginTop="10dp"
         android:layout_weight="4.62"
         android:animateLayoutChanges="true"
-        android:background="@android:color/holo_blue_light" />
+        android:background="@drawable/text_view_background_gradient"/>
+
+" />
+    <!--android:background="@android:color/holo_blue_light-->
 
     <EditText
         android:id="@+id/imported_text"
