@@ -45,10 +45,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
         enlargeSpacing(view);
         reduceSpacing(view);
 
-//        emphPre(view);
-//        emphMid(view);
-//        emphSuf(view);
-
+        emphText(view);
         unVowelsText(view);
         paintText(getContext(), view);
         changeFont(view);
@@ -148,7 +145,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
     }
     public void emphText(View mainView) {
 
-        Button b = (Button) mainView.findViewById(R.id.btn_emphasize_middle);
+        Button b = (Button) mainView.findViewById(R.id.btn_emphasize_text);
         b.setOnClickListener(new View.OnClickListener() {
 
             private int last = -1;
