@@ -34,6 +34,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
     private TextToSpeech myTTS;
     //status check code
     private int MY_DATA_CHECK_CODE = 0;
+    float dX, dY;
 
     public BottomBarFragment() {
     }
@@ -50,7 +51,7 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
         reduceText(view);
         enlargeSpacing(view);
         reduceSpacing(view);
-
+        moveAround(view);
         emphText(view);
         unVowelsText(view);
         paintText(getContext(), view);
@@ -133,7 +134,42 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
             public void onClick(View v) {
                 TextView tv = ((TextViewInterface) getActivity()).getTextView();
                 float line_spacing = tv.getLineSpacingExtra();
-                tv.setLineSpacing (line_spacing - 10, 1);
+                tv.setLineSpacing(line_spacing - 10, 1);
+            }
+        });
+    }
+
+    public void moveAround(View mainView) {
+        Button b = (Button) mainView.findViewById(R.id.btn_move_around);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tv = ((TextViewInterface) getActivity()).getTextView();
+                tv.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch (event.getAction()) {
+
+                            case MotionEvent.ACTION_DOWN:
+
+                                dX = v.getX() - event.getRawX();
+                                dY = v.getY() - event.getRawY();
+                                break;
+
+                            case MotionEvent.ACTION_MOVE:
+
+                                v.animate()
+                                        .x(event.getRawX() + dX)
+                                        .y(event.getRawY() + dY)
+                                        .setDuration(0)
+                                        .start();
+                                break;
+                            default:
+                                return false;
+                        }
+                        return true;
+                    }
+                });
             }
         });
     }
@@ -145,10 +181,11 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
             public void onClick(View v) {
                 TextView tv = ((TextViewInterface) getActivity()).getTextView();
                 float line_spacing = tv.getLineSpacingExtra();
-                tv.setLineSpacing (line_spacing + 10, 1);
+                tv.setLineSpacing(line_spacing + 10, 1);
             }
         });
     }
+
     public void emphText(View mainView) {
 
         Button b = (Button) mainView.findViewById(R.id.btn_emphasize_text);
@@ -254,7 +291,6 @@ public class BottomBarFragment extends Fragment implements TextToSpeech.OnInitLi
 
 
     }
-
 
 
 //    public void emphMid(View mainView) {
